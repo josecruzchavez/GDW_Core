@@ -12,7 +12,7 @@ Configuración base para módulos de magento 2 creados por GDW
 ### Instalación 
 
 ```
-composer require gdw/core "dev-master"
+composer require gdw/core
 
 php bin/magento module:enable GDW_Core
 php bin/magento setup:upgrade
@@ -24,7 +24,7 @@ php bin/magento cache:flush
 ### Actualización 
 
 ```
-composer update gdw/core "dev-master"
+composer update gdw/core
 
 php bin/magento module:enable GDW_Core
 php bin/magento setup:upgrade
