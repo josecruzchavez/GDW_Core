@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="gdwcore" sortOrder="10">
+            <label>GDW | Gestión Digital Web</label>
+        </tab>
+        <section id="gdwcoremodulelist" type="text" translate="label" sortOrder="998" showInDefault="1" showInWebsite="1" showInStore="1">
+            <tab>gdwcore</tab>
+            <label>Módulos Instalados</label>
+            <class>separator-top</class>
+            <resource>GDW_Core::modulelistconfig</resource>
+            <group id="gdwcoreinfo" type="text" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>GDW Core</label>
+                <field id="gdwcoreinfo" type="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>GDW\Core\Block\Adminhtml\System\Core\ModuleInfoFull</frontend_model>
+                </field>
+            </group>
+        </section>
+        <section id="gdwcoreconfig" type="text" translate="label" sortOrder="999" showInDefault="1" showInWebsite="1" showInStore="1">
+            <tab>gdwcore</tab>
+            <label>Acerca de</label>
+            <class>separator-top</class>            
+            <resource>GDW_Core::config</resource>
+            <group id="gdwgeneral" type="text" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Gestión Digital Web</label>
+                <frontend_model>GDW\Core\Block\Adminhtml\System\Core\Config</frontend_model>
+            </group>
+        </section>
+    </system>
+</config>
