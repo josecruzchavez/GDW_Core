@@ -7,8 +7,7 @@ use Magento\Framework\Data\Form\Element\AbstractElement;
 
 class ModuleInfo extends Fieldset
 {
-    const MODULE_NAME = 'GDW_Core';
-    const MODULE_CODE = 'GDW_Core';
+    const GDW_MODULE_CODE = 'GDW_Core';
     
     protected $helpData;
 
@@ -18,10 +17,9 @@ class ModuleInfo extends Fieldset
 
     public function render(AbstractElement $element)
     {
-        $name = self::MODULE_NAME;
-        $version = self::MODULE_CODE;
         $desc = $this->getDesc();
-
+        $name = static::GDW_MODULE_CODE;
+        $version = static::GDW_MODULE_CODE;
         return $this->helpData->getInfo($name,$version,$desc);
     }
 

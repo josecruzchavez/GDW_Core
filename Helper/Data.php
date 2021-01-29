@@ -1,9 +1,7 @@
 <?php
-
 namespace GDW\Core\Helper;
 
 use Magento\Store\Model\ScopeInterface;
-use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Store\Model\StoreManagerInterface;
@@ -12,11 +10,13 @@ use Magento\Framework\Module\ModuleListInterface;
 
 class Data extends AbstractHelper
 {
-	public $mCode = 'gdwcore/';
-
-    protected $storeManager;
+	const GDW_MODULE_CODE = 'gdwcore/';
 
 	protected $objectManager;
+
+	protected $storeManager;
+
+	protected $moduleList;
 
 	public function __construct(
         Context $context,
@@ -24,10 +24,10 @@ class Data extends AbstractHelper
 		StoreManagerInterface $storeManager,
 		ModuleListInterface $moduleList
     ) {
-        $this->objectManager = $objectManager;
+		parent::__construct($context);
+		$this->objectManager = $objectManager;
 		$this->storeManager = $storeManager;
 		$this->_moduleList = $moduleList;
-        parent::__construct($context);
     }
 
 	public function createObject($path, $arguments = [])
@@ -55,7 +55,7 @@ class Data extends AbstractHelper
 	}
 
 	public function getModuleCode(){
-		return $mCode;
+		return static::GDW_MODULE_CODE;
 	}
 
 	public function getVal($group, $code, $storeId = null)
@@ -77,7 +77,7 @@ class Data extends AbstractHelper
 
 	public function getAdminUrl()
 	{
-		return ObjectManager::getInstance()->create('Magento\Backend\Helper\Data')->getHomePageUrl();
+		return $this->createObject('Magento\Backend\Helper\Data')->getHomePageUrl();
 	}
 
 	public function getVersion($code = null)
@@ -122,7 +122,8 @@ HTML;
         $html .= '<td style="padding:8px; width:33%;"><strong>Nombre: </strong>'.$name.'</td>';
         $html .= '<td style="padding:8px; width:33%;"><strong>Versión: </strong>'.$vModule.'</td>';
 		  if($linkconfig != null){
-			$html .= '<td style="padding:8px; width:33%;"><strong><a href="'.$linkconfig.'">Configurar</a></strong></td>';
+			$fulllink = $this->getAdminUrl().$linkconfig;
+			$html .= '<td style="padding:8px; width:33%;"><strong><a href="'.$fulllink.'">Configurar</a></strong></td>';
 		  }else{
 			$html .= '<td style="padding:8px; width:33%;">&nbsp;</td>';
 		  }
