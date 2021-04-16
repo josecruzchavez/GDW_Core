@@ -9,6 +9,7 @@ class ModuleInfoFull extends Fieldset
 {
     const GDW_MODULE_CODE = 'GDW_Core';
     const GDW_MODULE_LINK = null;
+    const GDW_MODULE_LINK_SECC = null;
     
     protected $helpData;
 
@@ -22,8 +23,9 @@ class ModuleInfoFull extends Fieldset
         $desc = $this->getDescFull();
         $link = static::GDW_MODULE_LINK;
         $name = static::GDW_MODULE_CODE;
-        $version = static::GDW_MODULE_CODE;
-        return $this->helpData->getInfoFull($name, $version, $desc, $link);
+        $vers = static::GDW_MODULE_CODE;
+        $secc = static::GDW_MODULE_LINK_SECC;
+        return $this->helpData->getInfoFull($name, $vers, $desc, $link, $secc);
     }
 
     public function getDescFull()

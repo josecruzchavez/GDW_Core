@@ -115,14 +115,15 @@ HTML;
 		return $html;
 	}
 
-	public function getInfoFull($name, $version, $descFull = null, $linkconfig = null)
+	public function getInfoFull($name, $version, $descFull = null, $linkconfig = null, $secc = null)
 	{
 		$vModule = $this->getVersion($version);
 		$html  = '<table style="background:#f8f8f8; border:0px solid #ccc; margin:0px !important; padding:15px; width:100%;"><tr>';
         $html .= '<td style="padding:8px; width:33%;"><strong>Nombre: </strong>'.$name.'</td>';
         $html .= '<td style="padding:8px; width:33%;"><strong>Versión: </strong>'.$vModule.'</td>';
 		  if($linkconfig != null){
-			$fulllink = $this->getAdminUrl().$linkconfig;
+			$fulllink = $this->createObject('Magento\Backend\Helper\Data')->getUrl($linkconfig);
+			if($secc != null){$fulllink = $fulllink.$secc;}
 			$html .= '<td style="padding:8px; width:33%;"><strong><a href="'.$fulllink.'">Configurar</a></strong></td>';
 		  }else{
 			$html .= '<td style="padding:8px; width:33%;">&nbsp;</td>';
