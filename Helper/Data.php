@@ -1,12 +1,14 @@
 <?php
 namespace GDW\Core\Helper;
 
+use Magento\Framework\Registry;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\Module\ModuleListInterface;
+use Magento\Framework\App\ProductMetadataInterface;
 
 class Data extends AbstractHelper
 {
@@ -18,16 +20,20 @@ class Data extends AbstractHelper
 
 	protected $moduleList;
 
+	protected $registry;
+
 	public function __construct(
         Context $context,
-        ObjectManagerInterface $objectManager,
+		ObjectManagerInterface $objectManager,
 		StoreManagerInterface $storeManager,
-		ModuleListInterface $moduleList
+		ModuleListInterface $moduleList,
+		Registry $registry
     ) {
 		parent::__construct($context);
 		$this->objectManager = $objectManager;
 		$this->storeManager = $storeManager;
 		$this->_moduleList = $moduleList;
+		$this->registry = $registry;
     }
 
 	public function createObject($path, $arguments = [])
@@ -40,18 +46,20 @@ class Data extends AbstractHelper
         return $this->objectManager->get($path);
     }
 
+	public function getStoreData()
+    {
+        return $this->storeManager->getStore();
+    }
+
 	public function getStoreId()
     {
-        return $this->storeManager->getStore()->getId();
+        return $this->getStoreData()->getId();
 	}
 
 	public function getConfigValue($field, $storeId = null)
 	{
-		if($storeId == null){
-			$storeId = $this->getStoreId();	
-		}
-
-		return $this->scopeConfig->getValue($field, ScopeInterface::SCOPE_STORE, $storeId);
+		$IdStore = ($storeId == null ? $this->getStoreId() : null);
+		return $this->scopeConfig->getValue($field, ScopeInterface::SCOPE_STORE, $IdStore);
 	}
 
 	public function getModuleCode(){
@@ -60,19 +68,22 @@ class Data extends AbstractHelper
 
 	public function getVal($group, $code, $storeId = null)
 	{
-		if($storeId == null){
-			$storeId = $this->getStoreId();	
-		}
-
 		return $this->getConfigValue($this->getModuleCode().$group.'/'. $code, $storeId);
 	}
 
  	public function getDirectVal($code, $storeId = null)
     { 
-		if($storeId == null){
-			$storeId = $this->getStoreId();	
-		}
         return $this->getConfigValue($this->getModuleCode().$code, $storeId);
+    }
+
+	public function getCurrentProduct()
+    {
+        return $this->registry->registry('current_product');
+    }
+
+    public function getCurrentCategory()
+    {
+        return $this->registry->registry('current_category');
     }
 
 	public function getAdminUrl()
@@ -80,9 +91,55 @@ class Data extends AbstractHelper
 		return $this->createObject('Magento\Backend\Helper\Data')->getHomePageUrl();
 	}
 
+	public function log($message, $file = null, $level = null)
+    {  
+        try {
+            $name = ($file == null || $file == false ? 'gdw_core.log' : $file);
+
+			if($this->versionMagentoCompare('2.4.3')){
+				$writer = new \Zend_Log_Writer_Stream(BP.'/var/log/'.$name);
+				$logger = new \Zend_Log();
+			}else{
+				$writer = new \Zend\Log\Writer\Stream(BP.'/var/log/'.$name);
+				$logger = new \Zend\Log\Logger();
+			}
+
+            $logger->addWriter($writer);
+            
+            $m = $message;
+            if(is_array($message)){$m = json_encode($message);}
+
+            if($this->versionMagentoCompare('2.4.3')){
+				$logger->info($m);
+			}else{
+				$l = 6;
+            	$levels = ['emergency','alert','critical','error','warning','notice','info','debug'];
+            	if(($level != null || $level != false) && in_array($level, $levels)){
+                	$l = array_search($level, $levels);
+            	} 
+				$logger->log($l,$m);
+			}
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
 	public function getVersion($code = null)
     {	
-        return $code == null ? 'N/A' : $this->_moduleList->getOne($code)['setup_version'];
+		$result = 'N/A';
+		if($code != null){
+			if(isset($this->_moduleList->getOne($code)['setup_version'])){
+				$result = $this->_moduleList->getOne($code)['setup_version'];
+			}
+		}
+        return $result;
+    }
+
+	public function versionMagentoCompare($ver, $operator = '>=')
+    {
+        $productMetadata = $this->getObject(ProductMetadataInterface::class);
+        $version = $productMetadata->getVersion();
+        return version_compare($version, $ver, $operator);
     }
 
 	public function getGlobalInfoModule()
