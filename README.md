@@ -1,3 +1,5 @@
+![gdw_opengraph](https://gestiondigitalweb.com/github_assets/gdw_core/gdw_core_01.jpg)
+
 # GDW_Core
 
 Configuración base para módulos de magento 2 creados por GDW
@@ -6,6 +8,9 @@ Configuración base para módulos de magento 2 creados por GDW
 * Crea un grupo general para el acceso ACL.
 * Crea una tab para mostrar un listados de módulos creados por GDW e instalados en su magento.
 * Crea una tab con la información general de mi trabajo.
+
+## Compatibilidad
+✓ Magento 2.3.x, ✓ Magento 2.4.x
 
 ###### Ejecuta los siguientes comandos en la ruta base de Magento.
 
@@ -48,6 +53,12 @@ php bin/magento cache:flush
 
 ### Expresiones de gratitud
 
-* Comenta a otros sobre este proyecto 📢
-* [Invítame una cerveza 🍺](https://www.paypal.me/gestiondigitalweb). 
-* Da las gracias públicamente.
+* 📢 Comenta a otros sobre este proyecto.
+* 👨🏽‍💻 Da las gracias públicamente.
+* [🍺 Invítame una cerveza.](https://www.paypal.me/gestiondigitalweb)
+
+### Otros enlaces
+* [Sitio web](https://gestiondigitalweb.com/?utm_source=github&utm_medium=gdw&utm_campaign=core&utm_id=link)
+* [Listado de Módulos](https://gestiondigitalweb.com/gdw-modulos/index.php)
+* [Facebook](https://www.facebook.com/GestionDigitalWeb)
+* [Youtube](https://www.youtube.com/c/Gestiondigitalweb)
