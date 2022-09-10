@@ -1,4 +1,4 @@
-![gdw_opengraph](https://gestiondigitalweb.com/github_assets/gdw_core/gdw_core_01.jpg)
+![gdw_opengraph](https://php.gdw.mx/github_assets/gdw_core/gdw_core_01.jpg)
 
 # GDW_Core
 
@@ -8,6 +8,7 @@ Configuración base para módulos de magento 2 creados por GDW
 * Crea un grupo general para el acceso ACL.
 * Crea una tab para mostrar un listados de módulos creados por GDW e instalados en su magento.
 * Crea una tab con la información general de mi trabajo.
+* Crea una tarea en consola para poder ejecutar test de cron o cualquier función simple.
 
 ## Compatibilidad
 ✓ Magento 2.3.x, ✓ Magento 2.4.x
@@ -58,7 +59,7 @@ php bin/magento cache:flush
 * [🍺 Invítame una cerveza.](https://www.paypal.me/gestiondigitalweb)
 
 ### Otros enlaces
-* [Sitio web](https://gestiondigitalweb.com/?utm_source=github&utm_medium=gdw&utm_campaign=core&utm_id=link)
-* [Listado de Módulos](https://gestiondigitalweb.com/gdw-modulos/index.php)
+* [Sitio web](https://gdw.mx/?utm_source=github&utm_medium=gdw&utm_campaign=core&utm_id=link)
+* [Listado de Módulos](https://gdw.mx/modulos/)
 * [Facebook](https://www.facebook.com/GestionDigitalWeb)
 * [Youtube](https://www.youtube.com/c/Gestiondigitalweb)

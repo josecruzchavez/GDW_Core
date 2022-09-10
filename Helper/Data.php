@@ -15,19 +15,16 @@ class Data extends AbstractHelper
 	const GDW_MODULE_CODE = 'gdwcore/';
 
 	protected $objectManager;
-
 	protected $storeManager;
-
 	protected $moduleList;
-
 	protected $registry;
 
 	public function __construct(
-        Context $context,
+		Context $context,
+		Registry $registry,
 		ObjectManagerInterface $objectManager,
 		StoreManagerInterface $storeManager,
-		ModuleListInterface $moduleList,
-		Registry $registry
+		ModuleListInterface $moduleList
     ) {
 		parent::__construct($context);
 		$this->objectManager = $objectManager;
@@ -62,7 +59,8 @@ class Data extends AbstractHelper
 		return $this->scopeConfig->getValue($field, ScopeInterface::SCOPE_STORE, $IdStore);
 	}
 
-	public function getModuleCode(){
+	public function getModuleCode()
+	{
 		return static::GDW_MODULE_CODE;
 	}
 
@@ -146,8 +144,8 @@ class Data extends AbstractHelper
 	{
 		$html  = '<strong>Autor: </strong> José Cruz Chávez <br/>';
 		$html .= '<strong>Donaciones: </strong> <a href="https://www.paypal.me/gestiondigitalweb" target="_blank" rel="nofollow">Mediante Paypal</a><br/>';
-		$html .= '<strong>Sitio Web: </strong> <a href="https://gestiondigitalweb.com" target="_blank">https://gestiondigitalweb.com</a><br/>';
-		$html .= '<strong>Dudas o requerimientos: </strong> <a href="mailto:soporte@gestiondigitalweb.com" target="_blank">soporte@gestiondigitalweb.com</a><br/>';
+		$html .= '<strong>Sitio Web: </strong> <a href="https://gdw.mx" target="_blank">https://gdw.mx</a><br/>';
+		$html .= '<strong>Dudas o requerimientos: </strong> <a href="mailto:jcruz@gdw.mx" target="_blank">jcruz@gdw.mx</a><br/>';
 		return $html; 		
 	}
 

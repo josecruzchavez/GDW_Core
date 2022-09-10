@@ -2,13 +2,13 @@
   "name": "gdw/core",
   "description": "Módulo base GDW Para Magento 2",
   "type": "magento2-module",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "license": "proprietary",
   "authors": [
     {
       "name": "José Cruz Chávez",
-      "email": "josecruz@gestiondigitalweb.com",
-      "homepage": "https://gestiondigitalweb.com",
+      "email": "jcruz@gdw.mx",
+      "homepage": "https://gdw.mx",
       "role": "Developer"
     }
   ],

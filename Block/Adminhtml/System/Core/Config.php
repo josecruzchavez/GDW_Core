@@ -8,6 +8,6 @@ class Config extends Fieldset
 {
     public function render(AbstractElement $element)
     {
-        return '<iframe id="gdw_website" width="100%" height="1000" frameBorder="0" src="https://gestiondigitalweb.com/gdw-modulos/index.php"></iframe>';
+        return '<iframe id="gdw_website" width="100%" height="1000" frameBorder="0" src="https://php.gdw.mx/gdw-modulos/?layout=empty&utm_source=iframe&utm_medium=modules&utm_campaign=system&utm_id=view"></iframe>';
     }
 }

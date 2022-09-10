@@ -1,13 +1,19 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <tab id="gdwcore" sortOrder="10">
+        <tab id="gdwcore" sortOrder="800">
             <label>GDW | Gestión Digital Web</label>
         </tab>
+        <section id="gdwmarketing" type="text" translate="label" sortOrder="996" showInDefault="1" showInWebsite="1" showInStore="1">
+            <tab>gdwcore</tab>
+            <label>Marketing</label>
+            <class>separator-top</class>
+            <resource>GDW_Core::marketing</resource>
+        </section>
         <section id="gdwseo" type="text" translate="label" sortOrder="997" showInDefault="1" showInWebsite="1" showInStore="1">
             <tab>gdwcore</tab>
             <label>SEO</label>
-            <class>separator-top</class>            
+            <class>separator-top</class>
             <resource>GDW_Core::seo</resource>
         </section>
         <section id="gdwcoremodulelist" type="text" translate="label" sortOrder="998" showInDefault="1" showInWebsite="1" showInStore="1">
