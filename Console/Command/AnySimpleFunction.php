@@ -53,12 +53,13 @@ class AnySimpleFunction extends Command
                 $resultTime = microtime(true) - $startTime;
 
                 /* Process */
+                $output->writeln('');
                 $output->writeln('<info>Run Function</info>');
                 $output->writeln($task);
                 $output->writeln('<info>Finish process in ' . gmdate('H:i:s', $resultTime) . '.</info>');
 
             }else{
-                $output->writeln('<error>Falta un parámetro. --path o --function </error>');
+                $output->writeln('<error>A parameter is missing. --path or --function </error>');
             }
 
         } catch (\Exception $e) {
