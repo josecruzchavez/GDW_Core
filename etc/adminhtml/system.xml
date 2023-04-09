@@ -4,24 +4,62 @@
         <tab id="gdwcore" sortOrder="800">
             <label>GDW | Gestión Digital Web</label>
         </tab>
-        <section id="gdwmarketing" type="text" translate="label" sortOrder="996" showInDefault="1" showInWebsite="1" showInStore="1">
+        <section id="gdwweb" type="text" translate="label" sortOrder="900" showInDefault="1" showInWebsite="1" showInStore="1">
+            <tab>gdwcore</tab>
+            <label>Web</label>
+            <class>separator-top</class>
+            <resource>GDW_Core::web</resource>
+        </section>
+        <section id="gdwcatalog" type="text" translate="label" sortOrder="910" showInDefault="1" showInWebsite="1" showInStore="1">
+            <tab>gdwcore</tab>
+            <label>Catalog</label>
+            <class>separator-top</class>
+            <resource>GDW_Core::catalog</resource>
+        </section>
+         <section id="gdwcustomer" type="text" translate="label" sortOrder="920" showInDefault="1" showInWebsite="1" showInStore="1">
+            <tab>gdwcore</tab>
+            <label>Customer</label>
+            <class>separator-top</class>
+            <resource>GDW_Core::customer</resource>
+        </section>
+        <section id="gdwseo" type="text" translate="label" sortOrder="980" showInDefault="1" showInWebsite="1" showInStore="1">
+            <tab>gdwcore</tab>
+            <label>SEO</label>
+            <class>separator-top</class>
+            <resource>GDW_Core::seo</resource>
+        </section>
+        <section id="gdwmarketing" type="text" translate="label" sortOrder="990" showInDefault="1" showInWebsite="1" showInStore="1">
             <tab>gdwcore</tab>
             <label>Marketing</label>
             <class>separator-top</class>
             <resource>GDW_Core::marketing</resource>
         </section>
-        <section id="gdwseo" type="text" translate="label" sortOrder="997" showInDefault="1" showInWebsite="1" showInStore="1">
+        <section id="gdwcoremoduletools" type="text" translate="label" sortOrder="997" showInDefault="1" showInWebsite="1" showInStore="1">
             <tab>gdwcore</tab>
-            <label>SEO</label>
+            <label>Herramientas</label>
             <class>separator-top</class>
-            <resource>GDW_Core::seo</resource>
+            <resource>GDW_Core::moduletoolsconfig</resource>
+            <group id="gdwcoreabout" type="text" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Acerca de</label>
+                <frontend_model>GDW\Core\Block\Adminhtml\System\Core\GlobalAds</frontend_model>
+            </group>
+            <group id="gdwcommands" type="text" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Commands</label>
+                <field id="gdwcoretools" type="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>GDW\Core\Block\Adminhtml\System\Core\ModuleToolsInfo</frontend_model>
+                </field>
+            </group>
         </section>
         <section id="gdwcoremodulelist" type="text" translate="label" sortOrder="998" showInDefault="1" showInWebsite="1" showInStore="1">
             <tab>gdwcore</tab>
             <label>Módulos Instalados</label>
             <class>separator-top</class>
             <resource>GDW_Core::modulelistconfig</resource>
-            <group id="gdwcoreinfo" type="text" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="gdwcoreabout" type="text" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Acerca de</label>
+                <frontend_model>GDW\Core\Block\Adminhtml\System\Core\GlobalAds</frontend_model>
+            </group>
+            <group id="gdwcoreinfo" type="text" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>GDW Core</label>
                 <field id="gdwcoreinfo" type="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <frontend_model>GDW\Core\Block\Adminhtml\System\Core\ModuleInfoFull</frontend_model>
@@ -33,6 +71,10 @@
             <label>Acerca de</label>
             <class>separator-top</class>            
             <resource>GDW_Core::config</resource>
+            <group id="gdwcoreabout" type="text" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Acerca de</label>
+                <frontend_model>GDW\Core\Block\Adminhtml\System\Core\ModuleInfo</frontend_model>
+            </group>
             <group id="gdwgeneral" type="text" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Gestión Digital Web</label>
                 <frontend_model>GDW\Core\Block\Adminhtml\System\Core\Config</frontend_model>

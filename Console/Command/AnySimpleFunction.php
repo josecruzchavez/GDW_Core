@@ -27,9 +27,9 @@ class AnySimpleFunction extends Command
 
     protected function configure()
     {
-        $this->setName('gdw:anysimplefunction');
-        $this->setDescription('Run Any function when pass Path and Function');
-        $this->addOption('path', 'p', InputOption::VALUE_REQUIRED, 'path');
+        $this->setName('gdw:run:function');
+        $this->setDescription('Run any anonymous function when pass Class and Function');
+        $this->addOption('class', 'c', InputOption::VALUE_REQUIRED, 'class');
         $this->addOption('function', 'f', InputOption::VALUE_REQUIRED, 'function');
         parent::configure();
     }
@@ -41,7 +41,7 @@ class AnySimpleFunction extends Command
             /* Neccesary in some task */
             $this->state->setAreaCode(Area::AREA_FRONTEND);
 
-            $path = $input->getOption('path');
+            $path = $input->getOption('class');
             $function = $input->getOption('function');
 
             if($path && $function){
@@ -56,10 +56,10 @@ class AnySimpleFunction extends Command
                 $output->writeln('');
                 $output->writeln('<info>Run Function</info>');
                 $output->writeln($task);
-                $output->writeln('<info>Finish process in ' . gmdate('H:i:s', $resultTime) . '.</info>');
+                $output->writeln('<info>Finish process in ' . gmdate('H:i:s', intval($resultTime)) . '.</info>');
 
             }else{
-                $output->writeln('<error>A parameter is missing. --path or --function </error>');
+                $output->writeln('<error>A parameter is missing. --class or --function </error>');
             }
 
         } catch (\Exception $e) {

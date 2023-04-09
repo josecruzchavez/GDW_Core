@@ -142,7 +142,7 @@ class Data extends AbstractHelper
 
 	public function getGlobalInfoModule()
 	{
-		$html  = '<strong>Autor: </strong> José Cruz Chávez <br/>';
+		$html  = '<strong>Autor: </strong> <a href="https://www.linkedin.com/in/jose-cruz-chavez" target="_blank" rel="nofollow">José Cruz Chávez</a><br/>';
 		$html .= '<strong>Donaciones: </strong> <a href="https://www.paypal.me/gestiondigitalweb" target="_blank" rel="nofollow">Mediante Paypal</a><br/>';
 		$html .= '<strong>Sitio Web: </strong> <a href="https://gdw.mx" target="_blank">https://gdw.mx</a><br/>';
 		$html .= '<strong>Dudas o requerimientos: </strong> <a href="mailto:jcruz@gdw.mx" target="_blank">jcruz@gdw.mx</a><br/>';
@@ -195,5 +195,19 @@ HTML;
 	public function getInfoSimple($name, $version, $descFull = null, $linkconfig = null)
 	{
 		return $this->getInfoFull($name, $version, $descFull, $linkconfig);
+	}
+
+	public function getCommandInfoFull($command, $descFull = null)
+	{
+		$html  = '<table style="background:#f8f8f8; border:0px solid #ccc; margin:0px !important; padding:15px; width:100%;"><tr>';
+        $html .= '<td style="padding:8px; width:66%;"><strong>Command: </strong>'.$command.'</td>';
+		$html .= '<td style="padding:8px; width:33%;">&nbsp;</td>';
+    	$html .= '</tr></table>';
+		  if($descFull != null){
+			$html .= '<div style="background:#f8f8f8; border:0px solid #ccc; margin:0px !important; padding:8px;">';
+			$html .= $descFull;
+			$html .= '</div>';
+		  }
+	  return $html;
 	}
 }

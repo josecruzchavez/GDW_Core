@@ -2,7 +2,7 @@
   "name": "gdw/core",
   "description": "Módulo base GDW Para Magento 2",
   "type": "magento2-module",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "license": "proprietary",
   "authors": [
     {
@@ -20,7 +20,7 @@
     "gdw"
   ],
   "require": {
-    "php": "~7.2.0||~7.3.0||~7.4.0||~8.0.0||~8.1.0"
+    "php": "^7.2||^8.0"
   },
   "autoload": {
     "files": [
