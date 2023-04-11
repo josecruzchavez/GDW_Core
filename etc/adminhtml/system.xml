@@ -4,6 +4,12 @@
         <tab id="gdwcore" sortOrder="800">
             <label>GDW | Gestión Digital Web</label>
         </tab>
+        <section id="gdwgeneral" type="text" translate="label" sortOrder="900" showInDefault="1" showInWebsite="1" showInStore="1">
+            <tab>gdwcore</tab>
+            <label>General</label>
+            <class>separator-top</class>
+            <resource>GDW_Core::general</resource>
+        </section>
         <section id="gdwweb" type="text" translate="label" sortOrder="900" showInDefault="1" showInWebsite="1" showInStore="1">
             <tab>gdwcore</tab>
             <label>Web</label>
@@ -16,7 +22,7 @@
             <class>separator-top</class>
             <resource>GDW_Core::catalog</resource>
         </section>
-         <section id="gdwcustomer" type="text" translate="label" sortOrder="920" showInDefault="1" showInWebsite="1" showInStore="1">
+        <section id="gdwcustomer" type="text" translate="label" sortOrder="920" showInDefault="1" showInWebsite="1" showInStore="1">
             <tab>gdwcore</tab>
             <label>Customer</label>
             <class>separator-top</class>
@@ -28,17 +34,35 @@
             <class>separator-top</class>
             <resource>GDW_Core::seo</resource>
         </section>
-        <section id="gdwmarketing" type="text" translate="label" sortOrder="990" showInDefault="1" showInWebsite="1" showInStore="1">
+        <section id="gdwmarketing" type="text" translate="label" sortOrder="992" showInDefault="1" showInWebsite="1" showInStore="1">
             <tab>gdwcore</tab>
             <label>Marketing</label>
             <class>separator-top</class>
             <resource>GDW_Core::marketing</resource>
         </section>
+        <section id="gdwsecurity" type="text" translate="label" sortOrder="994" showInDefault="1" showInWebsite="1" showInStore="1">
+            <tab>gdwcore</tab>
+            <label>Security</label>
+            <class>separator-top</class>
+            <resource>GDW_Core::security</resource>
+        </section>
+        <section id="gdwsales" type="text" translate="label" sortOrder="995" showInDefault="1" showInWebsite="1" showInStore="1">
+            <tab>gdwcore</tab>
+            <label>Sales</label>
+            <class>separator-top</class>
+            <resource>GDW_Core::sales</resource>
+        </section>
+        <section id="gdwdeveloper" type="text" translate="label" sortOrder="996" showInDefault="1" showInWebsite="1" showInStore="1">
+            <tab>gdwcore</tab>
+            <label>Developer</label>
+            <class>separator-top</class>
+            <resource>GDW_Core::developer</resource>
+        </section>
         <section id="gdwcoremoduletools" type="text" translate="label" sortOrder="997" showInDefault="1" showInWebsite="1" showInStore="1">
             <tab>gdwcore</tab>
             <label>Herramientas</label>
             <class>separator-top</class>
-            <resource>GDW_Core::moduletoolsconfig</resource>
+            <resource>GDW_Core::config</resource>
             <group id="gdwcoreabout" type="text" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Acerca de</label>
                 <frontend_model>GDW\Core\Block\Adminhtml\System\Core\GlobalAds</frontend_model>
@@ -54,7 +78,7 @@
             <tab>gdwcore</tab>
             <label>Módulos Instalados</label>
             <class>separator-top</class>
-            <resource>GDW_Core::modulelistconfig</resource>
+            <resource>GDW_Core::config</resource>
             <group id="gdwcoreabout" type="text" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Acerca de</label>
                 <frontend_model>GDW\Core\Block\Adminhtml\System\Core\GlobalAds</frontend_model>
