@@ -199,7 +199,7 @@ HTML;
 
 	public function getCommandInfoFull($command, $descFull = null)
 	{
-		$html  = '<table style="background:#f8f8f8; border:0px solid #ccc; margin:0px !important; padding:15px; width:100%;"><tr>';
+		$html  = '<table style="background:#f8f8f8; border:0px solid #ccc; margin:0px !important; padding:15px; width:100%; border-top:10px solid white;"><tr>';
         $html .= '<td style="padding:8px; width:66%;"><strong>Command: </strong>'.$command.'</td>';
 		$html .= '<td style="padding:8px; width:33%;">&nbsp;</td>';
     	$html .= '</tr></table>';
