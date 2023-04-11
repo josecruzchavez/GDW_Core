@@ -1,9 +1,9 @@
 <?php
 namespace GDW\Core\Console\Command;
 
-use GDW\Core\Helper\Data;
 use Magento\Framework\App\Area;
 use Magento\Framework\App\State;
+use GDW\Core\Helper\Data as HelperData;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,16 +13,16 @@ class AnySimpleFunction extends Command
 {
 
     protected $state;
-    protected $gdwHelper;
+    protected $helperData;
 
     public function __construct(
         State $state,
-        Data $gdwHelper,
+        HelperData $helperData,
         $name = null
     ) {
         parent::__construct($name);
         $this->state = $state;
-        $this->gdwHelper = $gdwHelper;
+        $this->helperData = $helperData;
     }
 
     protected function configure()
@@ -48,7 +48,7 @@ class AnySimpleFunction extends Command
                 $output->write('Processing tasks... ');
                 $startTime = microtime(true);
             
-                $task = $this->gdwHelper->getObject($path)->{$function}();
+                $task = $this->helperData->getObject($path)->{$function}();
                 
                 $resultTime = microtime(true) - $startTime;
 
@@ -66,5 +66,6 @@ class AnySimpleFunction extends Command
             $output->writeln('<error>An error encountered.</error>');
             throw $e;
         }
+        return 0; /*Prevent message deprecated*/
     }
 }

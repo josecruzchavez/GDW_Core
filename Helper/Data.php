@@ -18,6 +18,7 @@ class Data extends AbstractHelper
 	protected $storeManager;
 	protected $moduleList;
 	protected $registry;
+	protected $context;
 
 	public function __construct(
 		Context $context,
@@ -29,7 +30,7 @@ class Data extends AbstractHelper
 		parent::__construct($context);
 		$this->objectManager = $objectManager;
 		$this->storeManager = $storeManager;
-		$this->_moduleList = $moduleList;
+		$this->moduleList = $moduleList;
 		$this->registry = $registry;
     }
 
@@ -126,8 +127,8 @@ class Data extends AbstractHelper
     {	
 		$result = 'N/A';
 		if($code != null){
-			if(isset($this->_moduleList->getOne($code)['setup_version'])){
-				$result = $this->_moduleList->getOne($code)['setup_version'];
+			if(isset($this->moduleList->getOne($code)['setup_version'])){
+				$result = $this->moduleList->getOne($code)['setup_version'];
 			}
 		}
         return $result;
