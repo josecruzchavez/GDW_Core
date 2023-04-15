@@ -1,6 +1,7 @@
 ![gdw_opengraph](https://php.gdw.mx/github_assets/gdw_core/gdw_core_01.jpg)
 
 # GDW_Core
+[![Latest Stable Version](http://poser.pugx.org/gdw/core/v?style=for-the-badge)](https://packagist.org/packages/gdw/core) [![Total Downloads](http://poser.pugx.org/gdw/core/downloads?style=for-the-badge)](https://packagist.org/packages/gdw/core) [![PHP Version Require](http://poser.pugx.org/gdw/core/require/php?style=for-the-badge)](https://packagist.org/packages/gdw/core)
 
 Configuración base para módulos de magento 2 creados por GDW
 * Crea una tab general en la configuración del administrador.
