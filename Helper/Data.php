@@ -211,4 +211,9 @@ HTML;
 		  }
 	  return $html;
 	}
+
+	public function getArrayTextarea($val)
+    {
+        return array_values(array_filter(explode(PHP_EOL, $val)));
+    }
 }
