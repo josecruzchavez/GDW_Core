@@ -3,7 +3,7 @@ namespace GDW\Core\Console\Command;
 
 use Magento\Framework\App\Area;
 use Magento\Framework\App\State;
-use GDW\Core\Helper\Data as HelperData;
+use Magento\Framework\ObjectManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,61 +11,102 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class AnySimpleFunction extends Command
 {
+    /** @var State */
+    private $state;
 
-    protected $state;
-    protected $helperData;
+    /** @var ObjectManagerInterface */
+    private $om;
 
     public function __construct(
         State $state,
-        HelperData $helperData,
-        $name = null
+        ObjectManagerInterface $om,
+        string $name = null
     ) {
         parent::__construct($name);
         $this->state = $state;
-        $this->helperData = $helperData;
+        $this->om = $om;
     }
 
     protected function configure()
     {
-        $this->setName('gdw:run:function');
-        $this->setDescription('Run any anonymous function when pass Class and Function');
-        $this->addOption('class', 'c', InputOption::VALUE_REQUIRED, 'class');
-        $this->addOption('function', 'f', InputOption::VALUE_REQUIRED, 'function');
+        $this->setName('gdw:run:function')
+            ->setDescription('Run a public no-arg method from a class (restricted).')
+            ->addOption('class', 'c', InputOption::VALUE_REQUIRED, 'FQCN (e.g. Vendor\\Module\\Model\\X)')
+            ->addOption('function', 'f', InputOption::VALUE_REQUIRED, 'Method name (no args)')
+            ->addOption('area', 'a', InputOption::VALUE_OPTIONAL, 'Area code (frontend/adminhtml)', Area::AREA_FRONTEND);
+
         parent::configure();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-       
+        $class = (string)$input->getOption('class');
+        $method = (string)$input->getOption('function');
+        $area = (string)$input->getOption('area');
+
+        if ($class === '' || $method === '') {
+            $output->writeln('<error>Missing parameter. Use --class and --function</error>');
+            return Command::FAILURE;
+        }
+
+        // Restricción recomendada: solo permitir tu namespace, necesito ejecutar cualquier función para debug
+        /*if (strpos($class, 'GDW\\') !== 0 && strpos($class, 'Tga\\') !== 0) {
+            $output->writeln('<error>Forbidden class namespace. Only GDW\\* or Tga\\* allowed.</error>');
+            return Command::FAILURE;
+        }*/
+
+        // ✅ Evitar métodos mágicos o peligrosos
+        if (!preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $method) || strpos($method, '__') === 0) {
+            $output->writeln('<error>Invalid method name.</error>');
+            return Command::FAILURE;
+        }
+
+        // ✅ Set area code sin reventar si ya está seteada
         try {
-            /* Neccesary in some task */
-            $this->state->setAreaCode(Area::AREA_FRONTEND);
+            $this->state->setAreaCode($area);
+        } catch (\Exception $e) {
+            // área ya seteada, ignoramos
+        }
 
-            $path = $input->getOption('class');
-            $function = $input->getOption('function');
+        $output->writeln('<info>Running:</info> ' . $class . '::' . $method . '()');
+        $start = microtime(true);
 
-            if($path && $function){
-                $output->write('Processing tasks... ');
-                $startTime = microtime(true);
-            
-                $task = $this->helperData->getObject($path)->{$function}();
-                
-                $resultTime = microtime(true) - $startTime;
+        try {
+            $instance = $this->om->get($class);
 
-                /* Process */
-                $output->writeln('');
-                $output->writeln('<info>Run Function</info>');
-                $output->writeln($task);
-                $output->writeln('<info>Finish process in ' . gmdate('H:i:s', intval($resultTime)) . '.</info>');
-
-            }else{
-                $output->writeln('<error>A parameter is missing. --class or --function </error>');
+            if (!method_exists($instance, $method)) {
+                $output->writeln('<error>Method does not exist.</error>');
+                return Command::FAILURE;
             }
 
-        } catch (\Exception $e) {
-            $output->writeln('<error>An error encountered.</error>');
-            throw $e;
+            $ref = new \ReflectionMethod($instance, $method);
+
+            if (!$ref->isPublic()) {
+                $output->writeln('<error>Method is not public.</error>');
+                return Command::FAILURE;
+            }
+
+            if ($ref->getNumberOfRequiredParameters() > 0) {
+                $output->writeln('<error>Method requires parameters. This command only supports no-arg methods.</error>');
+                return Command::FAILURE;
+            }
+
+            $result = $ref->invoke($instance);
+
+            $elapsed = microtime(true) - $start;
+            $output->writeln('<info>Done.</info> Time: ' . number_format($elapsed, 3) . 's');
+
+            // ✅ Print result safely
+            if (is_scalar($result) || $result === null) {
+                $output->writeln('Result: ' . var_export($result, true));
+            } else {
+                $output->writeln('Result: ' . json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+            }
+
+            return Command::SUCCESS;
+        } catch (\Throwable $e) {
+            $output->writeln('<error>Error: ' . $e->getMessage() . '</error>');
+            return Command::FAILURE;
         }
-        return 0; /*Prevent message deprecated*/
     }
 }

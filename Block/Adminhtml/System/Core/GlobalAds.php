@@ -1,16 +1,19 @@
 <?php
 namespace GDW\Core\Block\Adminhtml\System\Core;
 
-use GDW\Core\Helper\Data;
 use Magento\Config\Block\System\Config\Form\Fieldset;
 use Magento\Framework\Data\Form\Element\AbstractElement;
 
 class GlobalAds extends Fieldset
 {
-    protected $helpData;
 
-    public function __construct(Data $helpData) {
-        $this->helpData = $helpData;
+    public function __construct(
+        \Magento\Backend\Block\Template\Context $context,
+        \GDW\Core\Helper\Internal $helperInternal,
+    array $data = []
+    ) {
+        parent::__construct($context, $data);
+        $this->helperInternal = $helperInternal;
     }
 
     public function render(AbstractElement $element)
