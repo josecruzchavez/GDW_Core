@@ -7,6 +7,8 @@ use Magento\Framework\Data\Form\Element\AbstractElement;
 class GlobalAds extends Fieldset
 {
 
+    protected $helperInternal;
+    
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \GDW\Core\Helper\Internal $helperInternal,

@@ -1,11 +1,11 @@
 <?php
 namespace GDW\Core\Helper;
 
-use Magento\Backend\Helper\Data as BackendHelper;
-use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
-use Magento\Framework\App\ProductMetadataInterface;
+use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\Module\ModuleListInterface;
+use Magento\Backend\Helper\Data as BackendHelper;
+use Magento\Framework\App\ProductMetadataInterface;
 
 class Internal extends AbstractHelper
 {
