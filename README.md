@@ -58,7 +58,12 @@ depender de eventos o cron.
 
 Ejemplo de uso:
 
-php bin/magento gdw:run:function --class="Vendor\\Module\\Model\\Example" --method="execute"
+php bin/magento gdw:run:function --class="Vendor\\Module\\Model\\Example" --function="execute"
+
+Opciones:
+- --class (requerido): FQCN de la clase.
+- --function (requerido): método público a ejecutar sin parámetros obligatorios.
+- --area (opcional): frontend o adminhtml. Valor por defecto: frontend.
 
 Útil para:
 - Ejecutar cron manualmente
@@ -84,7 +89,7 @@ GDW_Core está diseñado para ser requerido por otros módulos GDW.
 Ejemplo composer.json:
 {
   "require": {
-    "gdw/core": "^2.0"
+    "gdw/core": "^4.0"
   }
 }
 ```
@@ -97,9 +102,12 @@ Ejemplo composer.json:
 
 #### Compatibilidad
 
-- Magento Open Source 2.3.x
-- Magento Open Source / Adobe Commerce 2.4.x
-- PHP según requisitos oficiales de Magento
+- Esta rama 4.x soporta Magento Open Source / Adobe Commerce 2.4.x
+- Incluye soporte para Magento 2.4.0 a 2.4.3 en entornos con PHP 7.4
+- También cubre líneas 2.4 más nuevas, respetando la matriz oficial de PHP de Magento según la versión instalada
+- Composer permite magento/framework en las líneas 102.x y 103.x
+- Serie de paquete recomendada: ^4.0
+- Tags esperados de esta línea: v4.x.y
 
 #### Instalación
 ```

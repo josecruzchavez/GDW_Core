@@ -33,7 +33,30 @@ class AnySimpleFunction extends Command
             ->setDescription('Run a public no-arg method from a class (restricted).')
             ->addOption('class', 'c', InputOption::VALUE_REQUIRED, 'FQCN (e.g. Vendor\\Module\\Model\\X)')
             ->addOption('function', 'f', InputOption::VALUE_REQUIRED, 'Method name (no args)')
-            ->addOption('area', 'a', InputOption::VALUE_OPTIONAL, 'Area code (frontend/adminhtml)', Area::AREA_FRONTEND);
+            ->addOption('area', 'a', InputOption::VALUE_OPTIONAL, 'Area code (frontend/adminhtml)', Area::AREA_FRONTEND)
+            ->addUsage('--class="GDW\\Core\\Test\\Index" --function="anyFunction"')
+            ->addUsage('--class="Magento\\Catalog\\Cron\\SynchronizeWebsiteAttributes" --function="execute" --area="adminhtml"')
+            ->setHelp(
+                <<<'HELP'
+Execute a public method without required arguments from a Magento class.
+
+Required options:
+    --class      Fully-qualified class name (FQCN)
+    --function   Public method to execute (no required params)
+
+Optional options:
+    --area       Magento area code: frontend|adminhtml (default: frontend)
+
+Examples:
+    php bin/magento gdw:run:function --class="GDW\\Core\\Test\\Index" --function="anyFunction"
+    php bin/magento gdw:run:function --class="Magento\\Catalog\\Cron\\SynchronizeWebsiteAttributes" --function="execute" --area="adminhtml"
+
+Notes:
+    - Only public methods are allowed.
+    - Methods with required arguments are rejected.
+    - Use carefully in production.
+HELP
+            );
 
         parent::configure();
     }
@@ -46,6 +69,7 @@ class AnySimpleFunction extends Command
 
         if ($class === '' || $method === '') {
             $output->writeln('<error>Missing parameter. Use --class and --function</error>');
+            $output->writeln('<comment>Run: php bin/magento gdw:run:function --help</comment>');
             return Command::FAILURE;
         }
 

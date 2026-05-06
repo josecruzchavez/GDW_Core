@@ -35,10 +35,16 @@ class ModuleToolsInfo extends Fieldset
     {
         $html = 
 <<<HTML
-    <p>Run any anonymous function when pass Class and Function.</p>
-    <p>examples:</p>
-    <p>php bin/magento gdw:run:function --class="GDW\Core\Test\Index" --function="anyFunction"</p>
-    <p>php bin/magento gdw:run:function --class="Magento\Catalog\Cron\SynchronizeWebsiteAttributes" --function="execute"</p>
+    <p><strong>Comando:</strong> <code>gdw:run:function</code></p>
+    <p>Ejecuta un método público sin argumentos obligatorios de una clase Magento.</p>
+    <p><strong>Uso:</strong></p>
+    <p><code>php bin/magento gdw:run:function --class="Vendor\Module\Model\Example" --function="execute" --area="frontend"</code></p>
+    <p><strong>Opciones:</strong></p>
+    <p><code>--class</code> (requerido), <code>--function</code> (requerido), <code>--area</code> (opcional: <code>frontend</code> o <code>adminhtml</code>).</p>
+    <p><strong>Ejemplos:</strong></p>
+    <p><code>php bin/magento gdw:run:function --class="GDW\Core\Test\Index" --function="anyFunction"</code></p>
+    <p><code>php bin/magento gdw:run:function --class="Magento\Catalog\Cron\SynchronizeWebsiteAttributes" --function="execute" --area="adminhtml"</code></p>
+    <p><strong>Nota:</strong> Solo ejecuta métodos públicos sin parámetros obligatorios. Usar con precaución en producción.</p>
 HTML;
         return $html;
     }

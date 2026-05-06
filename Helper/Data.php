@@ -34,6 +34,11 @@ class Data extends AbstractHelper
         return $this->factory->create($class, $arguments);
     }
 
+    public function getModuleCode(): string
+    {
+        return static::GDW_MODULE_CODE;
+    }
+
     public function getObject(string $class)
     {
         throw new \LogicException(
