@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace GDW\Core\Block\Adminhtml\System\Core;
 
 use Magento\Config\Block\System\Config\Form\Fieldset;
@@ -6,10 +8,9 @@ use Magento\Framework\Data\Form\Element\AbstractElement;
 
 class ConsultingServices extends Fieldset
 {
-    public function render(AbstractElement $element)
+    public function render(AbstractElement $element): string
     {
-        $html = $this->getServicesHtml();
-        return $html;
+        return $this->getServicesHtml();
     }
 
     private function getServicesHtml(): string
@@ -23,8 +24,8 @@ class ConsultingServices extends Fieldset
                     'Módulos customizados',
                     'Integraciones con terceros',
                     'APIs y webservices',
-                    'Automatizaciones'
-                ]
+                    'Automatizaciones',
+                ],
             ],
             [
                 'title' => 'Optimización & Performance',
@@ -34,8 +35,8 @@ class ConsultingServices extends Fieldset
                     'Auditoría de performance',
                     'Optimización de bases de datos',
                     'Caché y CDN',
-                    'SEO técnico'
-                ]
+                    'SEO técnico',
+                ],
             ],
             [
                 'title' => 'Soporte & Mantenimiento',
@@ -45,8 +46,8 @@ class ConsultingServices extends Fieldset
                     'Soporte técnico 24/7',
                     'Monitoreo proactivo',
                     'Parches de seguridad',
-                    'Mantenimiento preventivo'
-                ]
+                    'Mantenimiento preventivo',
+                ],
             ],
             [
                 'title' => 'Consultoría Estratégica',
@@ -56,9 +57,9 @@ class ConsultingServices extends Fieldset
                     'Arquitectura de sistemas',
                     'Plan de crecimiento',
                     'Mejores prácticas Magento',
-                    'Capacitación de equipo'
-                ]
-            ]
+                    'Capacitación de equipo',
+                ],
+            ],
         ];
 
         $html = $this->renderHeader();

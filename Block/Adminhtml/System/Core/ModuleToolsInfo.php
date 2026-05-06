@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1);
+
 namespace GDW\Core\Block\Adminhtml\System\Core;
 
+use GDW\Core\Helper\Internal;
 use Magento\Config\Block\System\Config\Form\Fieldset;
 use Magento\Backend\Block\Context;
 use Magento\Backend\Model\Auth\Session as AuthSession;
@@ -10,28 +13,25 @@ use Magento\Framework\View\Helper\Js;
 class ModuleToolsInfo extends Fieldset
 {
     const GDW_MODULE_COMMAND = 'gdw:run:function';
-    
-    protected $helperInternal;
 
     public function __construct(
         Context $context,
         AuthSession $authSession,
         Js $jsHelper,
-        \GDW\Core\Helper\Internal $helperInternal,
-    array $data = []
+        private readonly Internal $helperInternal,
+        array $data = []
     ) {
         parent::__construct($context, $authSession, $jsHelper, $data);
-        $this->helperInternal = $helperInternal;
     }
 
-    public function render(AbstractElement $element)
+    public function render(AbstractElement $element): string
     {
         $desc = $this->getDescFull();
         $command = static::GDW_MODULE_COMMAND;
         return $this->helperInternal->getCommandInfoFull($command, $desc);
     }
 
-    public function getDescFull()
+    public function getDescFull(): string
     {
         $html = 
 <<<HTML

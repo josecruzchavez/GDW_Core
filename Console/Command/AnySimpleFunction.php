@@ -1,9 +1,15 @@
 <?php
+declare(strict_types=1);
+
 namespace GDW\Core\Console\Command;
 
 use Magento\Framework\App\Area;
 use Magento\Framework\App\State;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\ObjectManagerInterface;
+use JsonException;
+use ReflectionException;
+use ReflectionMethod;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,23 +17,26 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class AnySimpleFunction extends Command
 {
-    /** @var State */
-    private $state;
+    private const ALLOWED_CLASS_PREFIXES = [
+        'GDW\\',
+        'Magento\\Catalog\\Cron\\',
+    ];
 
-    /** @var ObjectManagerInterface */
-    private $om;
+    private const ALLOWED_AREAS = [
+        Area::AREA_FRONTEND,
+        Area::AREA_ADMINHTML,
+        Area::AREA_CRONTAB,
+    ];
 
     public function __construct(
-        State $state,
-        ObjectManagerInterface $om,
-        string $name = null
+        private readonly State $state,
+        private readonly ObjectManagerInterface $om,
+        ?string $name = null
     ) {
         parent::__construct($name);
-        $this->state = $state;
-        $this->om = $om;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('gdw:run:function')
             ->setDescription('Run a public no-arg method from a class (restricted).')
@@ -61,7 +70,7 @@ HELP
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $class = (string)$input->getOption('class');
         $method = (string)$input->getOption('function');
@@ -73,17 +82,29 @@ HELP
             return Command::FAILURE;
         }
 
-        // ✅ Evitar métodos mágicos o peligrosos
+        if (!preg_match('/^(?:\\?[A-Z_a-z][A-Za-z0-9_]*)(?:\\\\[A-Z_a-z][A-Za-z0-9_]*)*$/', $class)) {
+            $output->writeln('<error>Invalid class name.</error>');
+            return Command::FAILURE;
+        }
+
+        if (!$this->isAllowedClass($class)) {
+            $output->writeln('<error>Class is outside the allowed namespaces.</error>');
+            return Command::FAILURE;
+        }
+
         if (!preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $method) || strpos($method, '__') === 0) {
             $output->writeln('<error>Invalid method name.</error>');
             return Command::FAILURE;
         }
 
-        // ✅ Set area code sin reventar si ya está seteada
+        if (!in_array($area, self::ALLOWED_AREAS, true)) {
+            $output->writeln('<error>Invalid area code. Allowed values: frontend, adminhtml, crontab.</error>');
+            return Command::FAILURE;
+        }
+
         try {
             $this->state->setAreaCode($area);
-        } catch (\Exception $e) {
-            // área ya seteada, ignoramos
+        } catch (LocalizedException) {
         }
 
         $output->writeln('<info>Running:</info> ' . $class . '::' . $method . '()');
@@ -97,7 +118,7 @@ HELP
                 return Command::FAILURE;
             }
 
-            $ref = new \ReflectionMethod($instance, $method);
+            $ref = new ReflectionMethod($instance, $method);
 
             if (!$ref->isPublic()) {
                 $output->writeln('<error>Method is not public.</error>');
@@ -118,13 +139,36 @@ HELP
             if (is_scalar($result) || $result === null) {
                 $output->writeln('Result: ' . var_export($result, true));
             } else {
-                $output->writeln('Result: ' . json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+                $output->writeln('Result: ' . $this->encodeResult($result));
             }
 
             return Command::SUCCESS;
+        } catch (ReflectionException $e) {
+            $output->writeln('<error>Reflection error: ' . $e->getMessage() . '</error>');
+            return Command::FAILURE;
         } catch (\Throwable $e) {
             $output->writeln('<error>Error: ' . $e->getMessage() . '</error>');
             return Command::FAILURE;
+        }
+    }
+
+    private function isAllowedClass(string $class): bool
+    {
+        foreach (self::ALLOWED_CLASS_PREFIXES as $prefix) {
+            if (str_starts_with(ltrim($class, '\\'), $prefix)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function encodeResult(mixed $result): string
+    {
+        try {
+            return json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
+        } catch (JsonException) {
+            return print_r($result, true);
         }
     }
 }
