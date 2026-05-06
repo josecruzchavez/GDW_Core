@@ -166,3 +166,8 @@ Verifica que no existan módulos dependientes activos.
 
 ### Licencia
 Este proyecto está licenciado bajo la licencia MIT.
+
+### Guia de ramas y releases
+Para la estrategia completa de ramas (3.x, 4.x y 4.4.x), versionado y flujo de releases, revisa:
+
+- docs/WORKSPACE_BRANCHING_AND_RELEASES.md
