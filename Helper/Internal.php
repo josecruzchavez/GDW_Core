@@ -13,13 +13,25 @@ class Internal extends AbstractHelper
 {
     const GDW_MODULE_CODE = 'gdwcore/';
 
+    /** @var BackendHelper */
+    private $backendHelper;
+
+    /** @var ModuleListInterface */
+    private $moduleList;
+
+    /** @var ProductMetadataInterface */
+    private $productMetadata;
+
     public function __construct(
         Context $context,
-        private readonly BackendHelper $backendHelper,
-        private readonly ModuleListInterface $moduleList,
-        private readonly ProductMetadataInterface $productMetadata
+        BackendHelper $backendHelper,
+        ModuleListInterface $moduleList,
+        ProductMetadataInterface $productMetadata
     ) {
         parent::__construct($context);
+        $this->backendHelper = $backendHelper;
+        $this->moduleList = $moduleList;
+        $this->productMetadata = $productMetadata;
     }
 
     public function getModuleCode(): string

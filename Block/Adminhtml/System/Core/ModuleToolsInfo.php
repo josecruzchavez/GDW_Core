@@ -14,14 +14,18 @@ class ModuleToolsInfo extends Fieldset
 {
     const GDW_MODULE_COMMAND = 'gdw:run:function';
 
+    /** @var Internal */
+    private $helperInternal;
+
     public function __construct(
         Context $context,
         AuthSession $authSession,
         Js $jsHelper,
-        private readonly Internal $helperInternal,
+        Internal $helperInternal,
         array $data = []
     ) {
         parent::__construct($context, $authSession, $jsHelper, $data);
+        $this->helperInternal = $helperInternal;
     }
 
     public function render(AbstractElement $element): string

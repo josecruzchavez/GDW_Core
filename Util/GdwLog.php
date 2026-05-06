@@ -21,7 +21,7 @@ final class GdwLog
      * @param string|null $file  ej: "debug_gdw.log"
      * @param string $level emergency|alert|critical|error|warning|notice|info|debug
      */
-    public static function log(mixed $message, ?string $file = null, string $level = 'info'): void
+    public static function log($message, ?string $file = null, string $level = 'info'): void
     {
         $name = self::normalizeLogFileName($file);
         $basePath = defined('BP') ? BP : getcwd();
@@ -42,7 +42,7 @@ final class GdwLog
                     $message,
                     JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR
                 );
-            } catch (JsonException) {
+            } catch (JsonException $exception) {
                 $message = print_r($message, true);
             }
         } else {

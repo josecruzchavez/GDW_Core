@@ -114,7 +114,7 @@ class Data extends AbstractHelper
         }
     }
 
-    public function log(mixed $message, ?string $file = null, string $level = 'info'): void
+    public function log($message, ?string $file = null, string $level = 'info'): void
     {
         GdwLog::log($message, $file, $level);
     }

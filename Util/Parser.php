@@ -11,7 +11,7 @@ final class Parser
     /**
      * Convert textarea value to array (one line = one value)
      */
-    public static function textareaToArray(mixed $value): array
+    public static function textareaToArray($value): array
     {
         $string = self::string($value);
         $lines = preg_split('/\R/', $string) ?: [];
@@ -25,7 +25,7 @@ final class Parser
     /**
      * Ensure array from mixed
      */
-    public static function array(mixed $value): array
+    public static function array($value): array
     {
         if (is_array($value)) {
             return $value;
@@ -45,7 +45,7 @@ final class Parser
     /**
      * Convert object/array/scalar to array (shallow)
      */
-    public static function toArray(mixed $value): array
+    public static function toArray($value): array
     {
         if (is_array($value)) {
             return $value;
@@ -65,7 +65,7 @@ final class Parser
     /**
      * Safe JSON encode
      */
-    public static function json(mixed $value, bool $pretty = false): string
+    public static function json($value, bool $pretty = false): string
     {
         $flags = JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR;
 
@@ -75,7 +75,7 @@ final class Parser
 
         try {
             return json_encode($value, $flags);
-        } catch (JsonException) {
+        } catch (JsonException $exception) {
             return '';
         }
     }
@@ -83,7 +83,7 @@ final class Parser
     /**
      * Check if value is "empty but meaningful"
      */
-    public static function isEmpty(mixed $value): bool
+    public static function isEmpty($value): bool
     {
         return $value === null || $value === '' || $value === [];
     }
@@ -96,13 +96,13 @@ final class Parser
      *  - key => value
      * Ignores empty lines and comments (# or //)
      */
-    public static function textareaToAssocArray(mixed $value): array
+    public static function textareaToAssocArray($value): array
     {
         $lines = self::textareaToArray($value);
         $result = [];
 
         foreach ($lines as $line) {
-            if (str_starts_with($line, '#') || str_starts_with($line, '//')) {
+            if (strpos($line, '#') === 0 || strpos($line, '//') === 0) {
                 continue;
             }
 
@@ -130,7 +130,7 @@ final class Parser
     /**
      * Ensure value is string
      */
-    public static function string(mixed $value): string
+    public static function string($value): string
     {
         if ($value === null) {
             return '';
@@ -146,7 +146,7 @@ final class Parser
 
         try {
             return json_encode($value, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
-        } catch (JsonException) {
+        } catch (JsonException $exception) {
             return '';
         }
     }
@@ -154,7 +154,7 @@ final class Parser
     /**
      * Parse to integer with default fallback
      */
-    public static function int(mixed $value, int $default = 0): int
+    public static function int($value, int $default = 0): int
     {
         if ($value === null || $value === '') {
             return $default;
@@ -178,7 +178,7 @@ final class Parser
     /**
      * Parse to float with default fallback
      */
-    public static function float(mixed $value, float $default = 0.0): float
+    public static function float($value, float $default = 0.0): float
     {
         if ($value === null || $value === '') {
             return $default;
@@ -202,7 +202,7 @@ final class Parser
     /**
      * Parse to boolean (handles config strings: '1', 'true', 'yes', 'on', etc)
      */
-    public static function bool(mixed $value, bool $default = false): bool
+    public static function bool($value, bool $default = false): bool
     {
         if ($value === null) {
             return $default;

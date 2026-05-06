@@ -28,12 +28,20 @@ class AnySimpleFunction extends Command
         Area::AREA_CRONTAB,
     ];
 
+    /** @var State */
+    private $state;
+
+    /** @var ObjectManagerInterface */
+    private $om;
+
     public function __construct(
-        private readonly State $state,
-        private readonly ObjectManagerInterface $om,
+        State $state,
+        ObjectManagerInterface $om,
         ?string $name = null
     ) {
         parent::__construct($name);
+        $this->state = $state;
+        $this->om = $om;
     }
 
     protected function configure(): void
@@ -104,7 +112,7 @@ HELP
 
         try {
             $this->state->setAreaCode($area);
-        } catch (LocalizedException) {
+        } catch (LocalizedException $exception) {
         }
 
         $output->writeln('<info>Running:</info> ' . $class . '::' . $method . '()');
@@ -155,7 +163,7 @@ HELP
     private function isAllowedClass(string $class): bool
     {
         foreach (self::ALLOWED_CLASS_PREFIXES as $prefix) {
-            if (str_starts_with(ltrim($class, '\\'), $prefix)) {
+            if (strpos(ltrim($class, '\\'), $prefix) === 0) {
                 return true;
             }
         }
@@ -163,11 +171,11 @@ HELP
         return false;
     }
 
-    private function encodeResult(mixed $result): string
+    private function encodeResult($result): string
     {
         try {
             return json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
-        } catch (JsonException) {
+        } catch (JsonException $exception) {
             return print_r($result, true);
         }
     }
