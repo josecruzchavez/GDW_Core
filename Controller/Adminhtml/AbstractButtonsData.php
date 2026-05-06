@@ -13,12 +13,24 @@ abstract class AbstractButtonsData extends Action
 {
     const ACTION_RESOURCE = 'GDW_Core::buttonsdata';
 
+    /** @var Registry */
+    protected $coreRegistry;
+
+    /** @var PageFactory */
+    protected $resultPageFactory;
+
+    /** @var ForwardFactory */
+    protected $resultForwardFactory;
+
     public function __construct(
         Context $context,
-        protected readonly Registry $coreRegistry,
-        protected readonly PageFactory $resultPageFactory,
-        protected readonly ForwardFactory $resultForwardFactory
+        Registry $coreRegistry,
+        PageFactory $resultPageFactory,
+        ForwardFactory $resultForwardFactory
     ) {
+        $this->coreRegistry = $coreRegistry;
+        $this->resultPageFactory = $resultPageFactory;
+        $this->resultForwardFactory = $resultForwardFactory;
         parent::__construct($context);
     }
 }
