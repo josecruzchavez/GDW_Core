@@ -102,12 +102,13 @@ Ejemplo composer.json:
 
 #### Compatibilidad
 
-- Esta rama 4.x soporta Magento Open Source / Adobe Commerce 2.4.x
-- Incluye soporte para Magento 2.4.0 a 2.4.3 en entornos con PHP 7.4
-- También cubre líneas 2.4 más nuevas, respetando la matriz oficial de PHP de Magento según la versión instalada
-- Composer permite magento/framework en las líneas 102.x y 103.x
+- Esta rama 4.x soporta Magento Open Source / Adobe Commerce 2.4.0 a 2.4.3
+- Requiere PHP 7.4
+- Composer restringe magento/framework a la línea 103.x
 - Serie de paquete recomendada: ^4.0
 - Tags esperados de esta línea: v4.x.y
+
+Para Magento 2.4.4+ y PHP 8.1+, usa la línea 4.4.x (serie recomendada ^4.4).
 
 #### Instalación
 ```

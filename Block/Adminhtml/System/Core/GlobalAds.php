@@ -17,7 +17,7 @@ class GlobalAds extends Fieldset
         AuthSession $authSession,
         Js $jsHelper,
         \GDW\Core\Helper\Internal $helperInternal,
-    array $data = []
+        array $data = []
     ) {
         parent::__construct($context, $authSession, $jsHelper, $data);
         $this->helperInternal = $helperInternal;
