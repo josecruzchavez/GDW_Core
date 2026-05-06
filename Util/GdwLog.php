@@ -19,7 +19,8 @@ final class GdwLog
     public static function log($message, ?string $file = null, string $level = 'info'): void
     {
         $name = $file ? ltrim($file, '/') : 'gdw_core.log';
-        $path = BP . '/var/log/' . $name;
+        $basePath = defined('BP') ? BP : getcwd();
+        $path = rtrim((string)$basePath, '/') . '/var/log/' . $name;
 
         if (!isset(self::$loggers[$name])) {
             $logger = new Logger('gdw_core');
@@ -31,13 +32,11 @@ final class GdwLog
         $logger = self::$loggers[$name];
 
         if (is_array($message) || is_object($message)) {
-            $message = json_encode(
+            $encoded = json_encode(
                 $message,
                 JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
             );
-            if ($msg === false) {
-                $msg = print_r($message, true);
-            }
+            $message = ($encoded !== false) ? $encoded : print_r($message, true);
         } else {
             $message = (string)$message;
         }
