@@ -36,7 +36,7 @@ class ModuleToolsInfo extends Fieldset
         $html = 
 <<<HTML
     <p><strong>Comando:</strong> <code>gdw:run:function</code></p>
-    <p>Ejecuta un método público sin argumentos obligatorios de una clase Magento.</p>
+    <p>Ejecuta un metodo publico sin argumentos de una clase Magento.</p>
     <p><strong>Uso:</strong></p>
     <p><code>php bin/magento gdw:run:function --class="Vendor\Module\Model\Example" --function="execute" --area="frontend"</code></p>
     <p><strong>Opciones:</strong></p>
@@ -44,7 +44,7 @@ class ModuleToolsInfo extends Fieldset
     <p><strong>Ejemplos:</strong></p>
     <p><code>php bin/magento gdw:run:function --class="GDW\Core\Test\Index" --function="anyFunction"</code></p>
     <p><code>php bin/magento gdw:run:function --class="Magento\Catalog\Cron\SynchronizeWebsiteAttributes" --function="execute" --area="adminhtml"</code></p>
-    <p><strong>Nota:</strong> Solo ejecuta métodos públicos sin parámetros obligatorios. Usar con precaución en producción.</p>
+    <p><strong>Nota:</strong> Solo ejecuta metodos publicos sin parametros obligatorios. Usar con precaucion en produccion.</p>
 HTML;
         return $html;
     }

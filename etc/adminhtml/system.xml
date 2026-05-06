@@ -58,6 +58,18 @@
             <class>separator-top</class>
             <resource>GDW_Core::developer</resource>
         </section>
+        <section id="gdwservices" type="text" translate="label" sortOrder="997" showInDefault="1" showInWebsite="1" showInStore="1">
+            <tab>gdwcore</tab>
+            <label>Servicios & Consultoría</label>
+            <class>separator-top</class>
+            <resource>GDW_Core::services</resource>
+            <group id="consulting" type="text" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Servicios de Consultoría</label>
+                <field id="consulting_info" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>GDW\Core\Block\Adminhtml\System\Core\ConsultingServices</frontend_model>
+                </field>
+            </group>
+        </section>
         <section id="gdwcoremoduletools" type="text" translate="label" sortOrder="997" showInDefault="1" showInWebsite="1" showInStore="1">
             <tab>gdwcore</tab>
             <label>Herramientas</label>
@@ -68,7 +80,7 @@
                 <frontend_model>GDW\Core\Block\Adminhtml\System\Core\GlobalAds</frontend_model>
             </group>
             <group id="gdwcommands" type="text" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Commands</label>
+                <label>Comandos CLI</label>
                 <field id="gdwcoretools" type="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <frontend_model>GDW\Core\Block\Adminhtml\System\Core\ModuleToolsInfo</frontend_model>
                 </field>
