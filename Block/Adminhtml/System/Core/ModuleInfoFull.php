@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1);
+
 namespace GDW\Core\Block\Adminhtml\System\Core;
 
+use GDW\Core\Helper\Internal;
 use Magento\Config\Block\System\Config\Form\Fieldset;
 use Magento\Backend\Block\Context;
 use Magento\Backend\Model\Auth\Session as AuthSession;
@@ -12,21 +15,18 @@ class ModuleInfoFull extends Fieldset
     const GDW_MODULE_CODE = 'GDW_Core';
     const GDW_MODULE_LINK = null;
     const GDW_MODULE_LINK_SECC = null;
-    
-    protected $helperInternal;
 
     public function __construct(
-    Context $context,
-    AuthSession $authSession,
-    Js $jsHelper,
-    \GDW\Core\Helper\Internal $helperInternal,
-    array $data = []
+        Context $context,
+        AuthSession $authSession,
+        Js $jsHelper,
+        private readonly Internal $helperInternal,
+        array $data = []
     ) {
         parent::__construct($context, $authSession, $jsHelper, $data);
-        $this->helperInternal = $helperInternal;
     }
 
-    public function render(AbstractElement $element)
+    public function render(AbstractElement $element): string
     {
         $desc = $this->getDescFull();
         $link = static::GDW_MODULE_LINK;
@@ -36,7 +36,7 @@ class ModuleInfoFull extends Fieldset
         return $this->helperInternal->getInfoFull($name, $vers, $desc, $link, $secc);
     }
 
-    public function getDescFull()
+    public function getDescFull(): string
     {
         $html = 
 <<<HTML

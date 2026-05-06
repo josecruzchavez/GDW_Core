@@ -1,11 +1,16 @@
 <?php
+declare(strict_types=1);
+
 namespace GDW\Core\Util;
 
+use JsonException;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
 final class GdwLog
 {
+    private const DEFAULT_LOG_FILE = 'gdw_core.log';
+
     /** @var Logger[] */
     private static array $loggers = [];
 
@@ -16,9 +21,9 @@ final class GdwLog
      * @param string|null $file  ej: "debug_gdw.log"
      * @param string $level emergency|alert|critical|error|warning|notice|info|debug
      */
-    public static function log($message, ?string $file = null, string $level = 'info'): void
+    public static function log(mixed $message, ?string $file = null, string $level = 'info'): void
     {
-        $name = $file ? ltrim($file, '/') : 'gdw_core.log';
+        $name = self::normalizeLogFileName($file);
         $basePath = defined('BP') ? BP : getcwd();
         $path = rtrim((string)$basePath, '/') . '/var/log/' . $name;
 
@@ -32,13 +37,16 @@ final class GdwLog
         $logger = self::$loggers[$name];
 
         if (is_array($message) || is_object($message)) {
-            $encoded = json_encode(
-                $message,
-                JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
-            );
-            $message = ($encoded !== false) ? $encoded : print_r($message, true);
+            try {
+                $message = json_encode(
+                    $message,
+                    JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR
+                );
+            } catch (JsonException) {
+                $message = print_r($message, true);
+            }
         } else {
-            $message = (string)$message;
+            $message = (string) $message;
         }
 
         $map = [
@@ -54,6 +62,23 @@ final class GdwLog
 
         $monologLevel = $map[$level] ?? Logger::INFO;
         $logger->log($monologLevel, $message);
+    }
+
+    private static function normalizeLogFileName(?string $file): string
+    {
+        $candidate = trim((string) $file);
+        if ($candidate === '') {
+            return self::DEFAULT_LOG_FILE;
+        }
+
+        $candidate = basename(str_replace('\\', '/', $candidate));
+        $candidate = preg_replace('/[^A-Za-z0-9._-]/', '_', $candidate) ?? '';
+
+        if ($candidate === '' || $candidate === '.' || $candidate === '..') {
+            return self::DEFAULT_LOG_FILE;
+        }
+
+        return $candidate;
     }
 
     /*

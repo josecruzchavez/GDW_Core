@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace GDW\Core\Helper;
 
 use Magento\Framework\App\Helper\Context;
@@ -11,20 +13,13 @@ class Internal extends AbstractHelper
 {
     const GDW_MODULE_CODE = 'gdwcore/';
 
-    protected $productMetadata;
-    protected $backendHelper;
-    protected $moduleList;
-
     public function __construct(
         Context $context,
-        BackendHelper $backendHelper,
-        ModuleListInterface $moduleList,
-        ProductMetadataInterface $productMetadata
+        private readonly BackendHelper $backendHelper,
+        private readonly ModuleListInterface $moduleList,
+        private readonly ProductMetadataInterface $productMetadata
     ) {
         parent::__construct($context);
-        $this->productMetadata = $productMetadata;
-        $this->backendHelper = $backendHelper;
-        $this->moduleList = $moduleList;
     }
 
     public function getModuleCode(): string
@@ -32,14 +27,17 @@ class Internal extends AbstractHelper
         return static::GDW_MODULE_CODE;
     }
 
-    public function getAdminUrl()
+    public function getAdminUrl(): string
     {
         return $this->backendHelper->getHomePageUrl();
     }
 
-    public function getVersion($code = null)
+    public function getVersion(?string $code = null): string
     {
-        if (!$code) return 'N/A';
+        if (!$code) {
+            return 'N/A';
+        }
+
         $info = $this->moduleList->getOne($code);
         return $info['setup_version'] ?? 'N/A';
     }
@@ -50,7 +48,7 @@ class Internal extends AbstractHelper
         return version_compare($version, $ver, $operator);
     }
 
-    public function getGlobalInfoModule()
+    public function getGlobalInfoModule(): string
     {
         $html  = '<strong>Autor: </strong> <a href="https://www.linkedin.com/in/jose-cruz-chavez" target="_blank" rel="nofollow">José Cruz Chávez</a><br/>';
         $html .= '<strong>Donaciones: </strong> <a href="https://www.paypal.me/gestiondigitalweb" target="_blank" rel="nofollow">Mediante Paypal</a><br/>';
@@ -59,7 +57,7 @@ class Internal extends AbstractHelper
         return $html;
     }
 
-    public function getInfo($name, $version, $desc)
+    public function getInfo(string $name, string $version, string $desc): string
     {
         $globalInfo = $this->getGlobalInfoModule();
         $vModule = $this->getVersion($version);
@@ -81,7 +79,7 @@ HTML;
         return $html;
     }
 
-    public function getInfoFull($name, $version, $descFull = null, $linkconfig = null, $secc = null)
+    public function getInfoFull(string $name, string $version, ?string $descFull = null, ?string $linkconfig = null, ?string $secc = null): string
     {
         $vModule = $this->getVersion($version);
 
@@ -89,9 +87,11 @@ HTML;
         $html .= '<td style="padding:8px; width:33%;"><strong>Nombre: </strong>' . $name . '</td>';
         $html .= '<td style="padding:8px; width:33%;"><strong>Versión: </strong>' . $vModule . '</td>';
 
-        if ($linkconfig != null) {
+        if ($linkconfig !== null) {
             $fulllink = $this->backendHelper->getUrl($linkconfig);
-            if ($secc != null) $fulllink .= $secc;
+            if ($secc !== null) {
+                $fulllink .= $secc;
+            }
             $html .= '<td style="padding:8px; width:33%;"><strong><a href="' . $fulllink . '">Configurar</a></strong></td>';
         } else {
             $html .= '<td style="padding:8px; width:33%;">&nbsp;</td>';
@@ -99,7 +99,7 @@ HTML;
 
         $html .= '</tr></table>';
 
-        if ($descFull != null) {
+        if ($descFull !== null) {
             $html .= '<div style="background:#f8f8f8; border:0px solid #ccc; margin:0px !important; padding:8px;">';
             $html .= $descFull;
             $html .= '</div>';
@@ -108,19 +108,19 @@ HTML;
         return $html;
     }
 
-    public function getInfoSimple($name, $version, $descFull = null, $linkconfig = null)
+    public function getInfoSimple(string $name, string $version, ?string $descFull = null, ?string $linkconfig = null): string
     {
         return $this->getInfoFull($name, $version, $descFull, $linkconfig);
     }
 
-    public function getCommandInfoFull($command, $descFull = null)
+    public function getCommandInfoFull(string $command, ?string $descFull = null): string
     {
         $html  = '<table style="background:#f8f8f8; border:0px solid #ccc; margin:0px !important; padding:15px; width:100%; border-top:10px solid white;"><tr>';
         $html .= '<td style="padding:8px; width:66%;"><strong>Command: </strong>' . $command . '</td>';
         $html .= '<td style="padding:8px; width:33%;">&nbsp;</td>';
         $html .= '</tr></table>';
 
-        if ($descFull != null) {
+        if ($descFull !== null) {
             $html .= '<div style="background:#f8f8f8; border:0px solid #ccc; margin:0px !important; padding:8px;">';
             $html .= $descFull;
             $html .= '</div>';
