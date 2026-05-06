@@ -2,7 +2,10 @@
 namespace GDW\Core\Block\Adminhtml\System\Core;
 
 use Magento\Config\Block\System\Config\Form\Fieldset;
+use Magento\Backend\Block\Context;
+use Magento\Backend\Model\Auth\Session as AuthSession;
 use Magento\Framework\Data\Form\Element\AbstractElement;
+use Magento\Framework\View\Helper\Js;
 
 class ModuleInfoFull extends Fieldset
 {
@@ -13,11 +16,13 @@ class ModuleInfoFull extends Fieldset
     protected $helperInternal;
 
     public function __construct(
-    \Magento\Backend\Block\Template\Context $context,
+    Context $context,
+    AuthSession $authSession,
+    Js $jsHelper,
     \GDW\Core\Helper\Internal $helperInternal,
     array $data = []
     ) {
-        parent::__construct($context, $data);
+        parent::__construct($context, $authSession, $jsHelper, $data);
         $this->helperInternal = $helperInternal;
     }
 
