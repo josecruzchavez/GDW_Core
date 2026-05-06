@@ -33,11 +33,11 @@ class AnySimpleFunction extends Command
             ->setDescription('Run a public no-arg method from a class (restricted).')
             ->addOption('class', 'c', InputOption::VALUE_REQUIRED, 'FQCN (e.g. Vendor\\Module\\Model\\X)')
             ->addOption('function', 'f', InputOption::VALUE_REQUIRED, 'Method name (no args)')
-            ->addOption('area', 'a', InputOption::VALUE_OPTIONAL, 'Area code (frontend/adminhtml)', Area::AREA_FRONTEND)
-            ->addUsage('--class="GDW\\Core\\Test\\Index" --function="anyFunction"')
-            ->addUsage('--class="Magento\\Catalog\\Cron\\SynchronizeWebsiteAttributes" --function="execute" --area="adminhtml"')
-            ->setHelp(
-                <<<'HELP'
+                        ->addOption('area', 'a', InputOption::VALUE_OPTIONAL, 'Area code (frontend/adminhtml)', Area::AREA_FRONTEND)
+                        ->addUsage('--class="GDW\\Core\\Test\\Index" --function="anyFunction"')
+                        ->addUsage('--class="Magento\\Catalog\\Cron\\SynchronizeWebsiteAttributes" --function="execute" --area="adminhtml"')
+                        ->setHelp(
+                                <<<'HELP'
 Execute a public method without required arguments from a Magento class.
 
 Required options:
@@ -56,7 +56,7 @@ Notes:
     - Methods with required arguments are rejected.
     - Use carefully in production.
 HELP
-            );
+                        );
 
         parent::configure();
     }
@@ -72,12 +72,6 @@ HELP
             $output->writeln('<comment>Run: php bin/magento gdw:run:function --help</comment>');
             return Command::FAILURE;
         }
-
-        // Restricción recomendada: solo permitir tu namespace, necesito ejecutar cualquier función para debug
-        /*if (strpos($class, 'GDW\\') !== 0 && strpos($class, 'Tga\\') !== 0) {
-            $output->writeln('<error>Forbidden class namespace. Only GDW\\* or Tga\\* allowed.</error>');
-            return Command::FAILURE;
-        }*/
 
         // ✅ Evitar métodos mágicos o peligrosos
         if (!preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $method) || strpos($method, '__') === 0) {

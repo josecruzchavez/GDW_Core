@@ -1,7 +1,7 @@
 <?php
 namespace GDW\Core\Util;
 
-final class Val
+final class Parser
 {
     /**
      * Convert textarea value to array (one line = one value)
@@ -109,6 +109,9 @@ final class Val
         return json_encode($value, JSON_UNESCAPED_UNICODE) ?: '';
     }
 
+    /**
+     * Parse to integer with default fallback
+     */
     public static function int($value, int $default = 0): int
     {
         if ($value === null || $value === '') return $default;
@@ -118,6 +121,9 @@ final class Val
         return $default;
     }
 
+    /**
+     * Parse to float with default fallback
+     */
     public static function float($value, float $default = 0.0): float
     {
         if ($value === null || $value === '') return $default;
@@ -127,6 +133,9 @@ final class Val
         return $default;
     }
 
+    /**
+     * Parse to boolean (handles config strings: '1', 'true', 'yes', 'on', etc)
+     */
     public static function bool($value, bool $default = false): bool
     {
         if ($value === null) return $default;
