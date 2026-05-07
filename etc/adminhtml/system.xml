@@ -60,15 +60,9 @@
         </section>
         <section id="gdwservices" type="text" translate="label" sortOrder="997" showInDefault="1" showInWebsite="1" showInStore="1">
             <tab>gdwcore</tab>
-            <label>Servicios &amp; Consultoría</label>
+            <label>Servicios y Consultoría</label>
             <class>separator-top</class>
             <resource>GDW_Core::services</resource>
-            <group id="consulting" type="text" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Servicios de Consultoría</label>
-                <field id="consulting_info" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <frontend_model>GDW\Core\Block\Adminhtml\System\Core\ConsultingServices</frontend_model>
-                </field>
-            </group>
         </section>
         <section id="gdwcoremoduletools" type="text" translate="label" sortOrder="997" showInDefault="1" showInWebsite="1" showInStore="1">
             <tab>gdwcore</tab>
@@ -91,10 +85,6 @@
             <label>Módulos Instalados</label>
             <class>separator-top</class>
             <resource>GDW_Core::config</resource>
-            <group id="gdwcoreabout" type="text" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Acerca de</label>
-                <frontend_model>GDW\Core\Block\Adminhtml\System\Core\GlobalAds</frontend_model>
-            </group>
             <group id="gdwcoreinfo" type="text" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>GDW Core</label>
                 <field id="gdwcoreinfo" type="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -109,11 +99,7 @@
             <resource>GDW_Core::config</resource>
             <group id="gdwcoreabout" type="text" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Acerca de</label>
-                <frontend_model>GDW\Core\Block\Adminhtml\System\Core\ModuleInfo</frontend_model>
-            </group>
-            <group id="gdwgeneral" type="text" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Gestión Digital Web</label>
-                <frontend_model>GDW\Core\Block\Adminhtml\System\Core\Config</frontend_model>
+                <frontend_model>GDW\Core\Block\Adminhtml\System\Core\ConsultingServices</frontend_model>
             </group>
         </section>
     </system>
