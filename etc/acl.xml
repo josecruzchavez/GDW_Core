@@ -17,7 +17,7 @@
                                 <resource id="GDW_Core::security" title="Security Section" sortOrder="7"/>
                                 <resource id="GDW_Core::sales" title="Sales Section" sortOrder="8"/>
                                 <resource id="GDW_Core::developer" title="Developer Section" sortOrder="9"/>
-                                <resource id="GDW_Core::services" title="Services & Consulting Section" sortOrder="10"/>
+                                <resource id="GDW_Core::services" title="Servicios y Consultoría Section" sortOrder="10"/>
                             </resource>
                         </resource>
                     </resource>
