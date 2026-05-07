@@ -60,7 +60,7 @@
         </section>
         <section id="gdwservices" type="text" translate="label" sortOrder="997" showInDefault="1" showInWebsite="1" showInStore="1">
             <tab>gdwcore</tab>
-            <label>Servicios & Consultoría</label>
+            <label>Servicios &amp; Consultoría</label>
             <class>separator-top</class>
             <resource>GDW_Core::services</resource>
             <group id="consulting" type="text" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
