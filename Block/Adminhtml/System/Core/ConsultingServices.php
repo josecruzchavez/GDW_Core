@@ -13,7 +13,7 @@ class ConsultingServices extends Fieldset
         return $this->getServicesHtml();
     }
 
-    private function getServicesHtml(): string
+    public function getServicesHtml(): string
     {
         $services = [
             [
@@ -72,17 +72,17 @@ class ConsultingServices extends Fieldset
         return $html;
     }
 
-    private function renderHeader(): string
+    public function renderHeader(): string
     {
         return <<<HTML
-<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 8px; margin-bottom: 20px; color: white;">
-    <h2 style="margin: 0 0 10px 0; font-size: 28px;">Servicios de Consultoría & Desarrollo</h2>
+<div style="background: #373330; padding: 30px; border-radius: 8px; margin-bottom: 20px; color: white;">
+    <h2 style="margin: 0 0 10px 0; font-size: 28px; color: white;">Servicios de Consultoría & Desarrollo</h2>
     <p style="margin: 0; opacity: 0.9;">Potencia tu tienda Magento con soluciones profesionales</p>
 </div>
 HTML;
     }
 
-    private function renderServiceCard(array $service): string
+    public function renderServiceCard(array $service): string
     {
         $itemsList = '';
         foreach ($service['items'] as $item) {
@@ -105,7 +105,7 @@ HTML;
 HTML;
     }
 
-    private function renderContactSection(): string
+    public function renderContactSection(): string
     {
         return <<<HTML
 <div style="background: #f8f9fa; border: 2px solid #667eea; border-radius: 8px; padding: 25px; margin-top: 30px; text-align: center;">
@@ -128,7 +128,7 @@ HTML;
 HTML;
     }
 
-    private function renderFooter(): string
+    public function renderFooter(): string
     {
         return <<<HTML
 <div style="margin-top: 30px; padding: 15px; background: #fafafa; border-left: 4px solid #667eea; border-radius: 4px; font-size: 12px; color: #666;">
