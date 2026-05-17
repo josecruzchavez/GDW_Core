@@ -1,7 +1,12 @@
-![gdw_opengraph](https://img-module.gdw.mx/github_assets/gdw_core/gdw_core_01.jpg)
+![gdw_opengraph](https://medios.gdw.mx/github_assets/gdw_core/gdw_core_01.jpg)
 
 # GDW_Core
-[![Latest Stable Version](http://poser.pugx.org/gdw/core/v?style=for-the-badge)](https://packagist.org/packages/gdw/core) [![Total Downloads](http://poser.pugx.org/gdw/core/downloads?style=for-the-badge)](https://packagist.org/packages/gdw/core) [![PHP Version Require](http://poser.pugx.org/gdw/core/require/php?style=for-the-badge)](https://packagist.org/packages/gdw/core)
+[![Latest Stable Version](https://img.shields.io/packagist/v/gdw/core?style=for-the-badge)](https://packagist.org/packages/gdw/core) [![PHP Version Require](https://img.shields.io/packagist/dependency-v/gdw/core/php?style=for-the-badge)](https://packagist.org/packages/gdw/core) [![Magento Framework Require](https://img.shields.io/packagist/dependency-v/gdw/core/magento%2Fframework?style=for-the-badge)](https://packagist.org/packages/gdw/core) [![License](https://img.shields.io/packagist/l/gdw/core?style=for-the-badge)](https://packagist.org/packages/gdw/core)
+
+
+
+
+
 
 
 #### Descripción
