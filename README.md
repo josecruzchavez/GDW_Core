@@ -176,3 +176,9 @@ Este proyecto está licenciado bajo la licencia MIT.
 Para la estrategia completa de ramas (3.x, 4.x y 4.4.x), versionado y flujo de releases, revisa:
 
 - docs/WORKSPACE_BRANCHING_AND_RELEASES.md
+
+## Changelog
+
+Consulta el changelog del modulo en:
+
+- [https://docs.gdw.mx/modulos/gdw_core/changelog](https://docs.gdw.mx/modulos/gdw_core/changelog)
