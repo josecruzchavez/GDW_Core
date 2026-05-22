@@ -8,13 +8,13 @@ use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Api\Data\CategoryInterface;
 use Magento\Catalog\Api\Data\ProductInterface;
-use Magento\Framework\App\RequestInterface;
+use Magento\Framework\App\Request\Http;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Registry;
 use Magento\Store\Model\ScopeInterface;
-use Magento\Store\Model\Store;
+use Magento\Store\Api\Data\StoreInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
 class Data extends AbstractHelper
@@ -26,7 +26,7 @@ class Data extends AbstractHelper
     protected StoreManagerInterface $storeManager;
     protected Registry $registry;
 
-    private RequestInterface $request;
+    private Http $request;
     private ProductRepositoryInterface $productRepository;
     private CategoryRepositoryInterface $categoryRepository;
 
@@ -34,7 +34,7 @@ class Data extends AbstractHelper
         Context $context,
         Registry $registry,
         StoreManagerInterface $storeManager,
-        RequestInterface $request,
+        Http $request,
         ProductRepositoryInterface $productRepository,
         CategoryRepositoryInterface $categoryRepository
     ) {
@@ -48,10 +48,10 @@ class Data extends AbstractHelper
 
     public function getModuleCode(): string
     {
-        return static::GDW_MODULE_CODE;
+        return self::GDW_MODULE_CODE;
     }
 
-    public function getStoreData(): Store
+    public function getStoreData(): StoreInterface
     {
         return $this->storeManager->getStore();
     }
