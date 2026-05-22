@@ -127,7 +127,7 @@ class ModuleListDynamic extends Fieldset
         $desc = $this->invokeNoArgsStringMethod($shortInfoClass, 'getDesc') ?? 'Sin descripción corta.';
         $configUrl = null;
 
-        if ($fullInfoClass !== null && class_exists($fullInfoClass)) {
+        if (class_exists($fullInfoClass)) {
             $link = $fullInfoClass::GDW_MODULE_LINK ?? null;
             $section = $fullInfoClass::GDW_MODULE_LINK_SECC ?? null;
 
@@ -153,7 +153,7 @@ class ModuleListDynamic extends Fieldset
     {
         try {
             $metaClass = $this->resolveMetaClassByConvention($moduleCode);
-            if ($metaClass === null || !class_exists($metaClass)) {
+            if (!class_exists($metaClass)) {
                 return null;
             }
 
@@ -194,7 +194,7 @@ class ModuleListDynamic extends Fieldset
         }
     }
 
-    private function resolveMetaClassByConvention(string $moduleCode): ?string
+    private function resolveMetaClassByConvention(string $moduleCode): string
     {
         if ($moduleCode === 'GDW_Core') {
             return 'GDW\\Core\\Helper\\GdwModuleMeta';
@@ -204,7 +204,7 @@ class ModuleListDynamic extends Fieldset
         return $namespace . '\\Helper\\GdwModuleMeta';
     }
 
-    private function resolveClassByConvention(string $moduleCode, bool $isFull): ?string
+    private function resolveClassByConvention(string $moduleCode, bool $isFull): string
     {
         $suffix = $isFull ? 'ModuleInfoFull' : 'ModuleInfo';
 
