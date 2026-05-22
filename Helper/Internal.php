@@ -54,6 +54,37 @@ class Internal extends AbstractHelper
         return $info['setup_version'] ?? 'N/A';
     }
 
+    /**
+     * Return installed GDW modules sorted by module code.
+     *
+     * @return array<int, array{code:string, version:string}>
+     */
+    public function getInstalledGdwModules(): array
+    {
+        $allModules = $this->moduleList->getAll();
+        $gdwModules = [];
+
+        foreach ($allModules as $moduleCode => $moduleData) {
+            if (strpos((string)$moduleCode, 'GDW_') !== 0) {
+                continue;
+            }
+
+            $gdwModules[] = [
+                'code' => (string)$moduleCode,
+                'version' => (string)($moduleData['setup_version'] ?? 'N/A'),
+            ];
+        }
+
+        usort(
+            $gdwModules,
+            static function (array $left, array $right): int {
+                return strcmp($left['code'], $right['code']);
+            }
+        );
+
+        return $gdwModules;
+    }
+
     public function versionMagentoCompare($ver, $operator = '>='): bool
     {
         $version = $this->productMetadata->getVersion();

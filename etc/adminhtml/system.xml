@@ -86,10 +86,8 @@
             <class>separator-top</class>
             <resource>GDW_Core::config</resource>
             <group id="gdwcoreinfo" type="text" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>GDW Core</label>
-                <field id="gdwcoreinfo" type="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <frontend_model>GDW\Core\Block\Adminhtml\System\Core\ModuleInfoFull</frontend_model>
-                </field>
+                <label>Listado GDW</label>
+                <frontend_model>GDW\Core\Block\Adminhtml\System\Core\ModuleListDynamic</frontend_model>
             </group>
         </section>
         <section id="gdwcoreconfig" type="text" translate="label" sortOrder="999" showInDefault="1" showInWebsite="1" showInStore="1">
