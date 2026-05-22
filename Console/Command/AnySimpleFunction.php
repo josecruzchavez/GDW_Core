@@ -38,6 +38,37 @@ class AnySimpleFunction extends Command
 
     protected function configure(): void
     {
+                $help = implode(PHP_EOL, [
+                        'Run a public Magento method that does not require arguments.',
+                        '',
+                        'Required options',
+                        '  --class      Fully-qualified class name (FQCN)',
+                        '  --function   Public method name to execute',
+                        '',
+                        'Optional options',
+                        '  --area       Magento area code to initialize before execution',
+                        '               Allowed: frontend, adminhtml, crontab',
+                        '               Default: frontend',
+                        '',
+                        'Examples',
+                        '  php bin/magento gdw:run:function \\',
+                        '    --class="GDW\\Core\\Test\\Index" \\',
+                        '    --function="anyFunction"',
+                        '',
+                        '  php bin/magento gdw:run:function \\',
+                        '    --class="Magento\\Catalog\\Cron\\SynchronizeWebsiteAttributes" \\',
+                        '    --function="execute" \\',
+                        '    --area="adminhtml"',
+                        '',
+                        'Restrictions',
+                        '  - Only classes within allowed namespaces can be executed.',
+                        '  - Only public methods are allowed.',
+                        '  - Methods with required parameters are rejected.',
+                        '',
+                        'Recommendation',
+                        '  Use this command carefully, especially in production environments.',
+                ]);
+
         $this->setName('gdw:run:function')
             ->setDescription('Run a public no-arg method from a class (restricted).')
             ->addOption('class', 'c', InputOption::VALUE_REQUIRED, 'FQCN (e.g. Vendor\\Module\\Model\\X)')
@@ -45,27 +76,7 @@ class AnySimpleFunction extends Command
                         ->addOption('area', 'a', InputOption::VALUE_OPTIONAL, 'Area code (frontend/adminhtml)', Area::AREA_FRONTEND)
                         ->addUsage('--class="GDW\\Core\\Test\\Index" --function="anyFunction"')
                         ->addUsage('--class="Magento\\Catalog\\Cron\\SynchronizeWebsiteAttributes" --function="execute" --area="adminhtml"')
-                        ->setHelp(
-                                <<<'HELP'
-Execute a public method without required arguments from a Magento class.
-
-Required options:
-    --class      Fully-qualified class name (FQCN)
-    --function   Public method to execute (no required params)
-
-Optional options:
-    --area       Magento area code: frontend|adminhtml (default: frontend)
-
-Examples:
-    php bin/magento gdw:run:function --class="GDW\\Core\\Test\\Index" --function="anyFunction"
-    php bin/magento gdw:run:function --class="Magento\\Catalog\\Cron\\SynchronizeWebsiteAttributes" --function="execute" --area="adminhtml"
-
-Notes:
-    - Only public methods are allowed.
-    - Methods with required arguments are rejected.
-    - Use carefully in production.
-HELP
-                        );
+                        ->setHelp($help);
 
         parent::configure();
     }

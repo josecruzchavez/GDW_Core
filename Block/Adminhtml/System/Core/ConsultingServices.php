@@ -74,12 +74,12 @@ class ConsultingServices extends Fieldset
 
     public function renderHeader(): string
     {
-        return <<<HTML
-<div style="background: #373330; padding: 30px; border-radius: 8px; margin-bottom: 20px; color: white;">
-    <h2 style="margin: 0 0 10px 0; font-size: 28px; color: white;">Servicios de Consultoría & Desarrollo</h2>
-    <p style="margin: 0; opacity: 0.9;">Potencia tu tienda Magento con soluciones profesionales</p>
-</div>
-HTML;
+        return implode('', [
+            '<div style="background: #373330; padding: 30px; border-radius: 8px; margin-bottom: 20px; color: white;">',
+            '<h2 style="margin: 0 0 10px 0; font-size: 28px; color: white;">Servicios de Consultoría & Desarrollo</h2>',
+            '<p style="margin: 0; opacity: 0.9;">Potencia tu tienda Magento con soluciones profesionales</p>',
+            '</div>',
+        ]);
     }
 
     public function renderServiceCard(array $service): string
@@ -89,52 +89,52 @@ HTML;
             $itemsList .= "<li style='margin: 5px 0; color: #555;'>✓ {$item}</li>";
         }
 
-        return <<<HTML
-<div style="background: white; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-    <div style="display: flex; align-items: flex-start;">
-        <div style="font-size: 32px; margin-right: 15px;">{$service['icon']}</div>
-        <div style="flex: 1;">
-            <h3 style="margin: 0 0 8px 0; color: #667eea; font-size: 18px;">{$service['title']}</h3>
-            <p style="margin: 0 0 12px 0; color: #666; font-size: 13px;">{$service['description']}</p>
-            <ul style="margin: 0; padding-left: 20px; font-size: 12px;">
-                {$itemsList}
-            </ul>
-        </div>
-    </div>
-</div>
-HTML;
+        return implode('', [
+            '<div style="background: white; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">',
+            '<div style="display: flex; align-items: flex-start;">',
+            '<div style="font-size: 32px; margin-right: 15px;">' . $service['icon'] . '</div>',
+            '<div style="flex: 1;">',
+            '<h3 style="margin: 0 0 8px 0; color: #667eea; font-size: 18px;">' . $service['title'] . '</h3>',
+            '<p style="margin: 0 0 12px 0; color: #666; font-size: 13px;">' . $service['description'] . '</p>',
+            '<ul style="margin: 0; padding-left: 20px; font-size: 12px;">',
+            $itemsList,
+            '</ul>',
+            '</div>',
+            '</div>',
+            '</div>',
+        ]);
     }
 
     public function renderContactSection(): string
     {
-        return <<<HTML
-<div style="background: #f8f9fa; border: 2px solid #667eea; border-radius: 8px; padding: 25px; margin-top: 30px; text-align: center;">
-    <h3 style="margin: 0 0 15px 0; color: #333; font-size: 20px;">¿Quieres contratar nuestros servicios?</h3>
-    <p style="margin: 0 0 20px 0; color: #666; font-size: 13px;">
-        Contacta con nosotros para discutir tu proyecto y obtener una cotización personalizada.
-    </p>
-    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-        <a href="mailto:jcruz@gdw.mx" style="background: #667eea; color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block;">
-            📧 Email: jcruz@gdw.mx
-        </a>
-        <a href="https://gdw.mx" target="_blank" style="background: #764ba2; color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block;">
-            🌐 Visita gdw.mx
-        </a>
-        <a href="https://www.linkedin.com/in/jose-cruz-chavez" target="_blank" style="background: #0077b5; color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block;">
-            💼 LinkedIn
-        </a>
-    </div>
-</div>
-HTML;
+        return implode('', [
+            '<div style="background: #f8f9fa; border: 2px solid #667eea; border-radius: 8px; padding: 25px; margin-top: 30px; text-align: center;">',
+            '<h3 style="margin: 0 0 15px 0; color: #333; font-size: 20px;">¿Quieres contratar nuestros servicios?</h3>',
+            '<p style="margin: 0 0 20px 0; color: #666; font-size: 13px;">',
+            'Contacta con nosotros para discutir tu proyecto y obtener una cotización personalizada.',
+            '</p>',
+            '<div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">',
+            '<a href="mailto:jcruz@gdw.mx" style="background: #667eea; color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block;">',
+            '📧 Email: jcruz@gdw.mx',
+            '</a>',
+            '<a href="https://gdw.mx" target="_blank" style="background: #764ba2; color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block;">',
+            '🌐 Visita gdw.mx',
+            '</a>',
+            '<a href="https://www.linkedin.com/in/jose-cruz-chavez" target="_blank" style="background: #0077b5; color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block;">',
+            '💼 LinkedIn',
+            '</a>',
+            '</div>',
+            '</div>',
+        ]);
     }
 
     public function renderFooter(): string
     {
-        return <<<HTML
-<div style="margin-top: 30px; padding: 15px; background: #fafafa; border-left: 4px solid #667eea; border-radius: 4px; font-size: 12px; color: #666;">
-    <strong>Nota:</strong> Todos nuestros servicios incluyen garantía de calidad, cumplimiento de plazos y 
-    actualización continua con las últimas versiones de Magento.
-</div>
-HTML;
+        return implode('', [
+            '<div style="margin-top: 30px; padding: 15px; background: #fafafa; border-left: 4px solid #667eea; border-radius: 4px; font-size: 12px; color: #666;">',
+            '<strong>Nota:</strong> Todos nuestros servicios incluyen garantía de calidad, cumplimiento de plazos y ',
+            'actualización continua con las últimas versiones de Magento.',
+            '</div>',
+        ]);
     }
 }

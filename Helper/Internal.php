@@ -42,6 +42,35 @@ class Internal extends AbstractHelper
         return $info['setup_version'] ?? 'N/A';
     }
 
+    /**
+     * Return installed GDW modules sorted by module code.
+     *
+     * @return array<int, array{code:string, version:string}>
+     */
+    public function getInstalledGdwModules(): array
+    {
+        $allModules = $this->moduleList->getAll();
+        $gdwModules = [];
+
+        foreach ($allModules as $moduleCode => $moduleData) {
+            if (strpos((string)$moduleCode, 'GDW_') !== 0) {
+                continue;
+            }
+
+            $gdwModules[] = [
+                'code' => (string)$moduleCode,
+                'version' => (string)($moduleData['setup_version'] ?? 'N/A'),
+            ];
+        }
+
+        usort(
+            $gdwModules,
+            static fn (array $left, array $right): int => strcmp($left['code'], $right['code'])
+        );
+
+        return $gdwModules;
+    }
+
     public function versionMagentoCompare($ver, $operator = '>='): bool
     {
         $version = $this->productMetadata->getVersion();
@@ -62,21 +91,19 @@ class Internal extends AbstractHelper
         $globalInfo = $this->getGlobalInfoModule();
         $vModule = $this->getVersion($version);
 
-        $html = <<<HTML
-<table style="background:#f8f8f8; border:1px solid #ccc; min-height:100px; margin:5px 0; padding:15px; width:100%;"><tr>
-<td valign="top" style="width:40%; padding:8px;">
-    <p><strong>Información:</strong></p>
-    <p>
-        <strong>Nombre:</strong> $name <br/>
-        <strong>Versión:</strong> $vModule <br/>
-        <strong>Descripción:</strong> $desc <br/>
-    </p>
-</td>
-<td valign="top" style="width:45%; padding:8px;"><p><strong>Extensiones y tiendas online Magento</strong></p><p>$globalInfo</p></td>
-</tr></table>
-HTML;
-
-        return $html;
+        return implode('', [
+            '<table style="background:#f8f8f8; border:1px solid #ccc; min-height:100px; margin:5px 0; padding:15px; width:100%;"><tr>',
+            '<td valign="top" style="width:40%; padding:8px;">',
+            '<p><strong>Información:</strong></p>',
+            '<p>',
+            '<strong>Nombre:</strong> ' . $name . ' <br/>',
+            '<strong>Versión:</strong> ' . $vModule . ' <br/>',
+            '<strong>Descripción:</strong> ' . $desc . ' <br/>',
+            '</p>',
+            '</td>',
+            '<td valign="top" style="width:45%; padding:8px;"><p><strong>Extensiones y tiendas online Magento</strong></p><p>' . $globalInfo . '</p></td>',
+            '</tr></table>',
+        ]);
     }
 
     public function getInfoFull(string $name, string $version, ?string $descFull = null, ?string $linkconfig = null, ?string $secc = null): string
