@@ -177,8 +177,12 @@ Para la estrategia completa de ramas (3.x, 4.x y 4.4.x), versionado y flujo de r
 
 - docs/WORKSPACE_BRANCHING_AND_RELEASES.md
 
-## Changelog
 
-Consulta el changelog del modulo en:
+### Documentación
+
+- [https://docs.gdw.mx/modulos/gdw_core](https://docs.gdw.mx/modulos/gdw_core)
+
+### Changelog
+Consulta el changelog del módulo en:
 
 - [https://docs.gdw.mx/modulos/gdw_core/changelog](https://docs.gdw.mx/modulos/gdw_core/changelog)
