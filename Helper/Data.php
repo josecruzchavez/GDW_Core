@@ -86,7 +86,7 @@ class Data extends AbstractHelper
 
         try {
             return $this->productRepository->getById($productId, false, $this->getStoreId());
-        } catch (NoSuchEntityException) {
+        } catch (NoSuchEntityException $exception) {
             return null;
         }
     }
@@ -109,7 +109,7 @@ class Data extends AbstractHelper
 
         try {
             return $this->categoryRepository->get($categoryId, $this->getStoreId());
-        } catch (NoSuchEntityException) {
+        } catch (NoSuchEntityException $exception) {
             return null;
         }
     }
