@@ -136,13 +136,16 @@ class ModuleListDynamic extends Fieldset
         $configUrl = null;
 
         if (class_exists($fullInfoClass)) {
-            $link = $fullInfoClass::GDW_MODULE_LINK ?? null;
-            $section = $fullInfoClass::GDW_MODULE_LINK_SECC ?? null;
+            $linkConst = $fullInfoClass . '::GDW_MODULE_LINK';
+            $sectionConst = $fullInfoClass . '::GDW_MODULE_LINK_SECC';
 
-            if (is_string($link) && $link !== '') {
+            $link = defined($linkConst) ? (string) constant($linkConst) : null;
+            $section = defined($sectionConst) ? (string) constant($sectionConst) : null;
+
+            if ($link !== null && $link !== '') {
                 $configUrl = $this->getUrl($link);
 
-                if (is_string($section) && $section !== '') {
+                if ($section !== null && $section !== '') {
                     $configUrl .= $section;
                 }
             }
