@@ -49,19 +49,23 @@ final class GdwLog
             $message = (string) $message;
         }
 
-        $map = [
-            'emergency' => Logger::EMERGENCY,
-            'alert'     => Logger::ALERT,
-            'critical'  => Logger::CRITICAL,
-            'error'     => Logger::ERROR,
-            'warning'   => Logger::WARNING,
-            'notice'    => Logger::NOTICE,
-            'info'      => Logger::INFO,
-            'debug'     => Logger::DEBUG,
+        $normalizedLevel = strtolower($level);
+        $allowedLevels = [
+            'emergency',
+            'alert',
+            'critical',
+            'error',
+            'warning',
+            'notice',
+            'info',
+            'debug',
         ];
 
-        $monologLevel = $map[$level] ?? Logger::INFO;
-        $logger->log($monologLevel, $message);
+        if (!in_array($normalizedLevel, $allowedLevels, true)) {
+            $normalizedLevel = 'info';
+        }
+
+        $logger->log($normalizedLevel, $message);
     }
 
     private static function normalizeLogFileName(?string $file): string
