@@ -79,7 +79,9 @@ class Data extends AbstractHelper
             return null;
         }
 
-        $productId = (int) ($this->request->getParam('id') ?? $this->request->getParam('product_id'));
+        $productId = $this->normalizeIntParam(
+            $this->request->getParam('id') ?? $this->request->getParam('product_id')
+        );
         if ($productId <= 0) {
             return null;
         }
@@ -102,7 +104,9 @@ class Data extends AbstractHelper
             return null;
         }
 
-        $categoryId = (int) ($this->request->getParam('id') ?? $this->request->getParam('category_id'));
+        $categoryId = $this->normalizeIntParam(
+            $this->request->getParam('id') ?? $this->request->getParam('category_id')
+        );
         if ($categoryId <= 0) {
             return null;
         }
@@ -117,5 +121,22 @@ class Data extends AbstractHelper
     public function log(mixed $message, ?string $file = null, string $level = 'info'): void
     {
         GdwLog::log($message, $file, $level);
+    }
+
+    private function normalizeIntParam(mixed $value): int
+    {
+        if (is_int($value)) {
+            return $value;
+        }
+
+        if (is_string($value) && is_numeric($value)) {
+            return (int) $value;
+        }
+
+        if (is_float($value)) {
+            return (int) $value;
+        }
+
+        return 0;
     }
 }

@@ -45,8 +45,10 @@ final class GdwLog
             } catch (JsonException) {
                 $message = print_r($message, true);
             }
-        } else {
+        } elseif (is_scalar($message)) {
             $message = (string) $message;
+        } else {
+            $message = print_r($message, true);
         }
 
         $normalizedLevel = strtolower($level);

@@ -83,9 +83,13 @@ class AnySimpleFunction extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $class = (string)$input->getOption('class');
-        $method = (string)$input->getOption('function');
-        $area = (string)$input->getOption('area');
+        $classOption = $input->getOption('class');
+        $methodOption = $input->getOption('function');
+        $areaOption = $input->getOption('area');
+
+        $class = is_string($classOption) ? $classOption : '';
+        $method = is_string($methodOption) ? $methodOption : '';
+        $area = is_string($areaOption) ? $areaOption : '';
 
         if ($class === '' || $method === '') {
             $output->writeln('<error>Missing parameter. Use --class and --function</error>');
@@ -124,7 +128,7 @@ class AnySimpleFunction extends Command
         try {
             $instance = $this->om->get($class);
 
-            if (!method_exists($instance, $method)) {
+            if (!is_object($instance) || !method_exists($instance, $method)) {
                 $output->writeln('<error>Method does not exist.</error>');
                 return Command::FAILURE;
             }
