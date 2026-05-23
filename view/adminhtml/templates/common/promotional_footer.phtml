@@ -1,0 +1,24 @@
+<?php
+/** @var \GDW\Core\Block\Adminhtml\View\PromotionalFooter $block */
+?>
+<div style="margin-top:18px;border:1px solid #d6d6d6;background:#f7f8fa;border-radius:6px;padding:14px 16px;display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;">
+    <div style="min-width:220px;max-width:780px;">
+        <div style="margin-top:8px;font-size:14px;line-height:1.35;font-weight:600;color:#2f2f2f;">
+            <?= $block->escapeHtml($block->getTitle()) ?>
+        </div>
+        <div style="margin-top:5px;font-size:12px;line-height:1.5;color:#555;max-width:760px;">
+            <?= $block->escapeHtml($block->getDescription()) ?>
+        </div>
+    </div>
+
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <a href="<?= $block->escapeUrl($block->getPrimaryUrl()) ?>" style="text-decoration:none;background:#2f3a49;color:#fff;border:1px solid #2f3a49;padding:7px 12px;border-radius:4px;font-size:12px;font-weight:600;line-height:1.1;">
+            <?= $block->escapeHtml($block->getPrimaryLabel()) ?>
+        </a>
+        <?php if ($block->shouldShowSecondary()): ?>
+            <a href="<?= $block->escapeUrl($block->getSecondaryUrl()) ?>" target="_blank" rel="noopener noreferrer" style="text-decoration:none;background:#fff;color:#2f3a49;border:1px solid #c7ced9;padding:7px 12px;border-radius:4px;font-size:12px;font-weight:600;line-height:1.1;">
+                <?= $block->escapeHtml($block->getSecondaryLabel()) ?>
+            </a>
+        <?php endif; ?>
+    </div>
+</div>
