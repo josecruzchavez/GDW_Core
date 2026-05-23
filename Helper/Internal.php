@@ -155,20 +155,4 @@ HTML;
     {
         return $this->getInfoFull($name, $version, $descFull, $linkconfig);
     }
-
-    public function getCommandInfoFull(string $command, ?string $descFull = null): string
-    {
-        $html  = '<table style="background:#f8f8f8; border:0px solid #ccc; margin:0px !important; padding:15px; width:100%; border-top:10px solid white;"><tr>';
-        $html .= '<td style="padding:8px; width:66%;"><strong>Command: </strong>' . $command . '</td>';
-        $html .= '<td style="padding:8px; width:33%;">&nbsp;</td>';
-        $html .= '</tr></table>';
-
-        if ($descFull !== null) {
-            $html .= '<div style="background:#f8f8f8; border:0px solid #ccc; margin:0px !important; padding:8px;">';
-            $html .= $descFull;
-            $html .= '</div>';
-        }
-
-        return $html;
-    }
 }
