@@ -171,13 +171,11 @@ Verifica que no existan módulos dependientes activos.
 ### Licencia
 Este proyecto está licenciado bajo la licencia MIT.
 
-### Guia de ramas y releases
-Para la estrategia completa de ramas (3.x, 4.x y 4.4.x), versionado y flujo de releases, revisa:
+### Documentación
 
-- docs/WORKSPACE_BRANCHING_AND_RELEASES.md
+- [https://docs.gdw.mx/modulos/gdw_core](https://docs.gdw.mx/modulos/gdw_core)
 
-## Changelog
-
-Consulta el changelog del modulo en:
+### Changelog
+Consulta el changelog del módulo en:
 
 - [https://docs.gdw.mx/modulos/gdw_core/changelog](https://docs.gdw.mx/modulos/gdw_core/changelog)
