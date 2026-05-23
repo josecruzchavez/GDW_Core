@@ -82,6 +82,9 @@ class ConsultingServices extends Fieldset
         ]);
     }
 
+    /**
+     * @param array{title:string,description:string,icon:string,items:array<int,string>} $service
+     */
     public function renderServiceCard(array $service): string
     {
         $itemsList = '';

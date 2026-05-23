@@ -10,6 +10,8 @@ final class Parser
 {
     /**
      * Convert textarea value to array (one line = one value)
+        *
+        * @return array<int, string>
      */
     public static function textareaToArray(mixed $value): array
     {
@@ -24,6 +26,8 @@ final class Parser
 
     /**
      * Ensure array from mixed
+        *
+        * @return array<int|string, mixed>
      */
     public static function array(mixed $value): array
     {
@@ -44,6 +48,8 @@ final class Parser
 
     /**
      * Convert object/array/scalar to array (shallow)
+        *
+        * @return array<int|string, mixed>
      */
     public static function toArray(mixed $value): array
     {
@@ -95,6 +101,8 @@ final class Parser
      *  - key:value
      *  - key => value
      * Ignores empty lines and comments (# or //)
+    *
+    * @return array<string, string>
      */
     public static function textareaToAssocArray(mixed $value): array
     {

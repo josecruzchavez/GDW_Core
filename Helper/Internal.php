@@ -71,7 +71,7 @@ class Internal extends AbstractHelper
         return $gdwModules;
     }
 
-    public function versionMagentoCompare($ver, $operator = '>='): bool
+    public function versionMagentoCompare(string $ver, string $operator = '>='): bool
     {
         $version = $this->productMetadata->getVersion();
         return version_compare($version, $ver, $operator);

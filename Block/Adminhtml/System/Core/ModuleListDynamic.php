@@ -13,6 +13,9 @@ use Magento\Framework\View\Helper\Js;
 
 class ModuleListDynamic extends Fieldset
 {
+    /**
+     * @param array<string, mixed> $data
+     */
     public function __construct(
         Context $context,
         AuthSession $authSession,
