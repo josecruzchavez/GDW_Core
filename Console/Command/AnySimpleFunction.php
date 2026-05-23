@@ -17,6 +17,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class AnySimpleFunction extends Command
 {
+    private const EXIT_SUCCESS = 0;
+    private const EXIT_FAILURE = 1;
+
     private const ALLOWED_CLASS_PREFIXES = [
         'GDW\\',
         'Magento\\Catalog\\Cron\\',
@@ -87,27 +90,27 @@ HELP
         if ($class === '' || $method === '') {
             $output->writeln('<error>Missing parameter. Use --class and --function</error>');
             $output->writeln('<comment>Run: php bin/magento gdw:run:function --help</comment>');
-            return Command::FAILURE;
+            return self::EXIT_FAILURE;
         }
 
         if (!preg_match('/^(?:\\?[A-Z_a-z][A-Za-z0-9_]*)(?:\\\\[A-Z_a-z][A-Za-z0-9_]*)*$/', $class)) {
             $output->writeln('<error>Invalid class name.</error>');
-            return Command::FAILURE;
+            return self::EXIT_FAILURE;
         }
 
         if (!$this->isAllowedClass($class)) {
             $output->writeln('<error>Class is outside the allowed namespaces.</error>');
-            return Command::FAILURE;
+            return self::EXIT_FAILURE;
         }
 
         if (!preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $method) || strpos($method, '__') === 0) {
             $output->writeln('<error>Invalid method name.</error>');
-            return Command::FAILURE;
+            return self::EXIT_FAILURE;
         }
 
         if (!in_array($area, self::ALLOWED_AREAS, true)) {
             $output->writeln('<error>Invalid area code. Allowed values: frontend, adminhtml, crontab.</error>');
-            return Command::FAILURE;
+            return self::EXIT_FAILURE;
         }
 
         try {
@@ -123,19 +126,19 @@ HELP
 
             if (!method_exists($instance, $method)) {
                 $output->writeln('<error>Method does not exist.</error>');
-                return Command::FAILURE;
+                return self::EXIT_FAILURE;
             }
 
             $ref = new ReflectionMethod($instance, $method);
 
             if (!$ref->isPublic()) {
                 $output->writeln('<error>Method is not public.</error>');
-                return Command::FAILURE;
+                return self::EXIT_FAILURE;
             }
 
             if ($ref->getNumberOfRequiredParameters() > 0) {
                 $output->writeln('<error>Method requires parameters. This command only supports no-arg methods.</error>');
-                return Command::FAILURE;
+                return self::EXIT_FAILURE;
             }
 
             $result = $ref->invoke($instance);
@@ -150,13 +153,13 @@ HELP
                 $output->writeln('Result: ' . $this->encodeResult($result));
             }
 
-            return Command::SUCCESS;
+            return self::EXIT_SUCCESS;
         } catch (ReflectionException $e) {
             $output->writeln('<error>Reflection error: ' . $e->getMessage() . '</error>');
-            return Command::FAILURE;
+            return self::EXIT_FAILURE;
         } catch (\Throwable $e) {
             $output->writeln('<error>Error: ' . $e->getMessage() . '</error>');
-            return Command::FAILURE;
+            return self::EXIT_FAILURE;
         }
     }
 
