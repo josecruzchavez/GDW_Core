@@ -1,4 +1,4 @@
-![gdw_opengraph](https://medios.gdw.mx/github_assets/gdw_core/gdw_core_01.jpg)
+![gdw_core](https://medios.gdw.mx/github_assets/gdw_core/gdw_core_01.jpg)
 
 # GDW_Core
 [![Latest Stable Version](https://img.shields.io/packagist/v/gdw/core?style=for-the-badge)](https://packagist.org/packages/gdw/core) [![PHP Version Require](https://img.shields.io/packagist/dependency-v/gdw/core/php?style=for-the-badge)](https://packagist.org/packages/gdw/core) [![Magento Framework Require](https://img.shields.io/packagist/dependency-v/gdw/core/magento%2Fframework?style=for-the-badge)](https://packagist.org/packages/gdw/core) [![License](https://img.shields.io/packagist/l/gdw/core?style=for-the-badge)](https://packagist.org/packages/gdw/core)
@@ -106,13 +106,9 @@ Ejemplo composer.json:
 
 #### Compatibilidad
 
-- Esta rama 4.4.x soporta Magento Open Source / Adobe Commerce 2.4.4+
-- Requiere PHP 8.1 a 8.3
-- Composer restringe magento/framework a 103.0.4+
-- Serie de paquete recomendada: ^4.4
-- Tags esperados de esta línea: v4.4.x
-
-Para Magento 2.4.0 a 2.4.3 con PHP 7.4, usa la línea 4.x (serie recomendada ^4.0).
+- Rama 4.4.x: Magento Open Source / Adobe Commerce 2.4.4+ con PHP 8.1 a 8.3 (serie recomendada ^4.4)
+- Rama 4.x: Magento Open Source / Adobe Commerce 2.4.0 a 2.4.3 con PHP 7.4 (serie recomendada ^4.0)
+- Rama 3.x: Magento Open Source / Adobe Commerce 2.3.x con PHP 7.4 (serie recomendada ^3.0)
 
 #### Instalación
 ```
