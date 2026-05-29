@@ -106,7 +106,7 @@ Ejemplo composer.json:
 
 #### Compatibilidad
 
-- Rama 4.4.x: Magento Open Source / Adobe Commerce 2.4.4+ con PHP 8.1 a 8.3 (serie recomendada ^4.4)
+- Rama 4.4.x: Magento Open Source / Adobe Commerce 2.4.4+ con PHP 8.1+ (serie recomendada ^4.4)
 - Rama 4.x: Magento Open Source / Adobe Commerce 2.4.0 a 2.4.3 con PHP 7.4 (serie recomendada ^4.0)
 - Rama 3.x: Magento Open Source / Adobe Commerce 2.3.x con PHP 7.4 (serie recomendada ^3.0)
 
