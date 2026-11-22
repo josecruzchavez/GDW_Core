@@ -9,7 +9,7 @@ final class GdwModuleMeta
     public static function getMeta(): array
     {
         return [
-            'desc' => 'Configuracion base para modulos de Magento 2 creados por GDW.',
+            'desc' => 'Configuración base para módulos de Magento 2 creados por GDW.',
             'config_path' => '',
             'config_anchor' => '',
             'repo_url' => 'https://github.com/josecruzchavez/GDW_Core',
