@@ -176,6 +176,24 @@ class ModuleVersionCatalogTest extends TestCase
         $this->assertSame('', $renderPaidBadge->invoke($block, null));
     }
 
+    public function testPaidModelComesFromOwnMetadataOrFreemiumPairing(): void
+    {
+        $reflection = new ReflectionClass(ModuleListDynamic::class);
+        $block = $reflection->newInstanceWithoutConstructor();
+        $resolvePricingModel = $reflection->getMethod('resolvePricingModel');
+        $resolvePricingModel->setAccessible(true);
+
+        $this->assertSame(
+            'paid',
+            $resolvePricingModel->invoke($block, ['pricing_model' => 'paid'], 'GDW_ArShowNetPrice', [])
+        );
+        $this->assertSame(
+            'paid',
+            $resolvePricingModel->invoke($block, [], 'GDW_AsyncIndexPro', ['GDW_AsyncIndexPro' => true])
+        );
+        $this->assertNull($resolvePricingModel->invoke($block, [], 'GDW_AsyncIndex', []));
+    }
+
     private function assertFailurePreservesCatalog(string $warningMessage): void
     {
         $catalog = $this->validCatalog();
