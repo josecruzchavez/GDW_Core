@@ -86,6 +86,7 @@ Desde esta sección puedes:
 - Validar permisos ACL
 - Ver información del desarrollador
 
+Para detalles técnicos de la consulta de versiones y la ejecución de pruebas, consulta [DEVELOPER.md](DEVELOPER.md).
 
 #### Uso como dependiencia
 
