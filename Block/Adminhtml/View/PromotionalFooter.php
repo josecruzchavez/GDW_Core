@@ -29,7 +29,7 @@ class PromotionalFooter extends Template
 
     public function getPrimaryUrl(): string
     {
-        return $this->buildTrackedUrl('https://gdw.mx/contacto', 'primary');
+        return $this->buildTrackedUrl('https://gdw.mx/contacto', 'primary', $this->getPrimaryLabel());
     }
 
     public function getSecondaryLabel(): string
@@ -39,7 +39,7 @@ class PromotionalFooter extends Template
 
     public function getSecondaryUrl(): string
     {
-        return $this->buildTrackedUrl('https://gdw.mx', 'secondary');
+        return $this->buildTrackedUrl('https://gdw.mx', 'secondary', $this->getSecondaryLabel());
     }
 
     public function shouldShowSecondary(): bool
@@ -47,15 +47,24 @@ class PromotionalFooter extends Template
         return $this->getSecondaryUrl() !== '';
     }
 
-    private function buildTrackedUrl(string $baseUrl, string $content): string
+    private function buildTrackedUrl(string $baseUrl, string $content, string $actionLabel): string
     {
+        $request = $this->getRequest();
+        $domain = $request->getHttpHost();
+        $sourcePath = (string)$request->getPathInfo();
+        $sourcePath = preg_replace('#/key/[^/]+(?=/|$)#', '', $sourcePath) ?? $sourcePath;
+        $sourceUrl = ($request->isSecure() ? 'https://' : 'http://') . $domain . $sourcePath;
         $separator = strpos($baseUrl, '?') === false ? '?' : '&';
 
         return $baseUrl . $separator . http_build_query([
-            'utm_source' => 'magento_admin',
+            'utm_source' => $domain,
             'utm_medium' => 'gdw_admin_footer',
-            'utm_campaign' => 'gdw_modules',
+            'utm_campaign' => $request->getFullActionName(),
             'utm_content' => $content,
+            'gdw_domain' => $domain,
+            'gdw_page' => $sourceUrl,
+            'gdw_action' => $actionLabel,
+            'gdw_target' => $baseUrl,
         ]);
     }
 }
