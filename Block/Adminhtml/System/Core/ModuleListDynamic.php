@@ -121,9 +121,7 @@ class ModuleListDynamic extends Fieldset
                         $module['version']
                     );
                 $versionCell = $this->renderVersionCell($versionInfo);
-                $pricingModel = $meta['pricing_model'] === 'paid' || isset($proModuleCodes[$module['code']])
-                    ? 'paid'
-                    : null;
+                $pricingModel = $this->resolvePricingModel($meta, $module['code'], $proModuleCodes);
                 $pricingBadge = $this->renderPaidBadge($pricingModel);
                 $proOffer = $this->renderProOffer(
                     $meta['pro_module'],
@@ -235,6 +233,19 @@ class ModuleListDynamic extends Fieldset
         return '<div style="margin-top:8px; padding:8px; border-left:3px solid #1979c3; background:#f4f9fc;">'
             . '<a href="' . $safeUrl . '" target="_blank" rel="noopener noreferrer">Conoce el complemento Pro</a>'
             . '</div>';
+    }
+
+    /**
+     * @param array<string, mixed> $metadata
+     * @param array<string, bool> $proModuleCodes
+     */
+    private function resolvePricingModel(array $metadata, string $moduleCode, array $proModuleCodes): ?string
+    {
+        if (($metadata['pricing_model'] ?? null) === 'paid' || isset($proModuleCodes[$moduleCode])) {
+            return 'paid';
+        }
+
+        return null;
     }
 
     private function renderPaidBadge(?string $pricingModel): string
