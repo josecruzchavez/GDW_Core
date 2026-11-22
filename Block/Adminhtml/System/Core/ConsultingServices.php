@@ -110,6 +110,8 @@ class ConsultingServices extends Fieldset
 
     public function renderContactSection(): string
     {
+        $supportUrl = htmlspecialchars($this->getSupportUrl(), ENT_QUOTES, 'UTF-8');
+
         return implode('', [
             '<div style="background: #f8f9fa; border: 2px solid #667eea; border-radius: 8px; padding: 25px; margin-top: 30px; text-align: center;">',
             '<h3 style="margin: 0 0 15px 0; color: #333; font-size: 20px;">¿Quieres contratar nuestros servicios?</h3>',
@@ -117,6 +119,9 @@ class ConsultingServices extends Fieldset
             'Contacta con nosotros para discutir tu proyecto y obtener una cotización personalizada.',
             '</p>',
             '<div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">',
+            '<a href="' . $supportUrl . '" target="_blank" rel="noopener noreferrer" style="background: #2f3a49; color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block;">',
+            'Contactar soporte',
+            '</a>',
             '<a href="mailto:jcruz@gdw.mx" style="background: #667eea; color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block;">',
             '📧 Email: jcruz@gdw.mx',
             '</a>',
@@ -128,6 +133,27 @@ class ConsultingServices extends Fieldset
             '</a>',
             '</div>',
             '</div>',
+        ]);
+    }
+
+    private function getSupportUrl(): string
+    {
+        $baseUrl = 'https://gdw.mx/contacto';
+        $request = $this->getRequest();
+        $domain = $request->getHttpHost();
+        $sourcePath = (string) $request->getPathInfo();
+        $sourcePath = preg_replace('#/key/[^/]+(?=/|$)#', '', $sourcePath) ?? $sourcePath;
+        $sourceUrl = ($request->isSecure() ? 'https://' : 'http://') . $domain . $sourcePath;
+
+        return $baseUrl . '?' . http_build_query([
+            'utm_source' => $domain,
+            'utm_medium' => 'gdw_admin_footer',
+            'utm_campaign' => $request->getFullActionName(),
+            'utm_content' => 'primary',
+            'gdw_domain' => $domain,
+            'gdw_page' => $sourceUrl,
+            'gdw_action' => 'Contactar soporte',
+            'gdw_target' => $baseUrl,
         ]);
     }
 
