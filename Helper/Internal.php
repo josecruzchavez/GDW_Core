@@ -139,4 +139,5 @@ class Internal extends AbstractHelper
     {
         return $this->getInfoFull($name, $version, $descFull, $linkconfig);
     }
+
 }
